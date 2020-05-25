@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">553374073157-n8j08fet1nm24rescbemstvmq38q0ssr.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://naniz-team.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">553374073157</string>
+    <string name="google_api_key" translatable="false">AIzaSyCOuAea2Ogtmj_pEVBlPbmQnmXNr9z0-QE</string>
+    <string name="google_app_id" translatable="false">1:553374073157:android:846b80cbb9da72a4783e2c</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCOuAea2Ogtmj_pEVBlPbmQnmXNr9z0-QE</string>
+    <string name="google_storage_bucket" translatable="false">naniz-team.appspot.com</string>
+    <string name="project_id" translatable="false">naniz-team</string>
+</resources>
