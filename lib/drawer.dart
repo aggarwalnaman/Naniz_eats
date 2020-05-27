@@ -130,6 +130,10 @@ class DrawerWidget extends StatelessWidget {
                             fontSize: 18,
                           ),
                         ),
+                        onTap: (){
+                          Navigator.of(context)
+                              .pushReplacementNamed("/PromotionPage");
+                        },
                       ),
                       ListTile(
                         dense: true,

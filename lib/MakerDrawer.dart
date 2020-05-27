@@ -67,7 +67,7 @@ class MakerDrawerWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: height * 0.05),
+                      SizedBox(height: 5),
                       ListTile(
                         dense: true,
                         title: Text(
@@ -153,6 +153,19 @@ class MakerDrawerWidget extends StatelessWidget {
                         onTap: (){
                           Navigator.of(context)
                               .pushReplacementNamed("/AnalyticsPage",arguments: uid);
+                        },
+                      ),
+                      ListTile(
+                        dense: true,
+                        title: Text(
+                          'Payouts',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                        onTap: (){
+                          Navigator.of(context)
+                              .pushReplacementNamed("/PayoutPage",arguments: uid);
                         },
                       ),
                       ListTile(

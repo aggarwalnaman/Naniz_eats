@@ -38,9 +38,6 @@ class _MenuPageState extends State<MenuPage> {
     } else if (_selectedIndex == 2) {
     } else if (_selectedIndex == 3) {
       // Navigator.pushReplacementNamed(context, "/ProfilePage");
-      _auth.signOut().whenComplete(() {
-        Navigator.pushReplacementNamed(context, "/AuthChoosePage");
-      });
     }
   }
 

@@ -1,4 +1,5 @@
-import 'package:econoomaccess/drawer.dart';
+import 'package:geolocator/geolocator.dart';
+import 'drawer.dart';
 import 'package:firebase_messaging/firebase_messaging.dart' as fcm;
 import 'AuthChoosePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,6 +9,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'localization/language_constants.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
+import 'dart:developer';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 
 class ExplorePage extends StatefulWidget {
   @override
@@ -17,43 +22,85 @@ class ExplorePage extends StatefulWidget {
 class _ExplorePageState extends State<ExplorePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _database = Firestore.instance;
-  var user, uid;
+  FirebaseUser user;
+  var uid;
+  Geoflutterfire geo;
+  Position position;
+
+  // Location location;
 
   Future<String> getUser() async {
     await _auth.currentUser().then((val) {
       setState(() {
+        user = val;
         uid = val.uid;
       });
     });
   }
 
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    orderSuccessful(response.orderId);
+    //Add success popup
+    Navigator.pushReplacementNamed(context, "/ExplorePage");
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    print(response.message);
+    //Add Failure popup
+    Navigator.pushReplacementNamed(context, "/ExplorePage");
+  }
+
   String menuType = "special";
   Map<String, dynamic> pref;
+  Razorpay _razorpay;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((Position value) => setState(() {
+          position = value;
+        }));
+    initDynamicLink();
+    geo = Geoflutterfire();
     getUser();
+    _razorpay = Razorpay();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+  }
+
+  @override
+  void dispose() {
+    _razorpay.clear();
+    super.dispose();
   }
 
   Widget TopRated() {
-    return StreamBuilder<QuerySnapshot>(
-      stream: _database
-          .collection("homemakers")
-          .orderBy('rating', descending: true)
-          .snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+    if (position == null) {
+      return Center(child: Text("OOPS, Looks like no one is serving!"));
+    }
+    return StreamBuilder(
+      stream: geo
+          .collection(collectionRef: _database.collection('homemakers'))
+          .within(
+              center: geo.point(
+                  latitude: position.latitude, longitude: position.longitude),
+              radius: 10,
+              field: 'position'),
+      builder: (BuildContext context,
+          AsyncSnapshot<List<DocumentSnapshot>> snapshot) {
+            print(position);
         List<DocumentSnapshot> topRated = [];
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         } else if (snapshot.hasData) {
-          snapshot.data.documents.every((element) {
+          snapshot.data.every((element) {
             if (topRated.length < 5) {
               topRated.add(element);
             }
             return true;
           });
-
+          if (snapshot.data.isEmpty) {
+            return Center(child: Text("OOPS, Looks like no one is serving!"));
+          }
           return Container(
             width: MediaQuery.of(context).size.width,
             height: 220.0,
@@ -64,7 +111,7 @@ class _ExplorePageState extends State<ExplorePage> {
                 return GestureDetector(
                   onTap: () {
                     Navigator.of(context).pushReplacementNamed('/ProfilePage',
-                        arguments: topRated[index].documentID);
+                        arguments: snapshot.data[index].documentID);
                   },
                   child: Container(
                     alignment: Alignment.bottomCenter,
@@ -74,7 +121,8 @@ class _ExplorePageState extends State<ExplorePage> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
                         image: DecorationImage(
-                            image: NetworkImage(topRated[index]['image']),
+                            image: NetworkImage(
+                                snapshot.data[index].data['image']),
                             fit: BoxFit.fill)),
                     child: Container(
                       padding: EdgeInsets.only(left: 5.0),
@@ -88,7 +136,7 @@ class _ExplorePageState extends State<ExplorePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            "${topRated[index]["name"]}\'s Kitchen",
+                            "${snapshot.data[index].data["name"]}\'s Kitchen",
                             style: TextStyle(
                                 fontSize: 17.0,
                                 fontFamily: "Gilroy",
@@ -98,9 +146,10 @@ class _ExplorePageState extends State<ExplorePage> {
                           Row(
                             children: <Widget>[
                               Text(
-                                topRated[index]['mealtype'][0] +
+                                snapshot.data[index].data['mealtype'][0] +
                                     " | " +
-                                    topRated[index]["rating"].toString(),
+                                    snapshot.data[index].data["rating"]
+                                        .toString(),
                                 style: TextStyle(
                                     fontSize: 13.0,
                                     fontFamily: "Gilroy",
@@ -129,9 +178,8 @@ class _ExplorePageState extends State<ExplorePage> {
   void orderSuccessful(String orderId) async {
     List cart;
     String fcmToken = await fcm.FirebaseMessaging().getToken();
-    FirebaseUser user = await _auth.currentUser();
+    // FirebaseUser user = await _auth.currentUser();
     List<Map> orders = [];
-
     await _database.collection('users').document(this.uid).get().then(
       (DocumentSnapshot userSnapshot) {
         cart = List.from(Map.from(userSnapshot.data)['current_cart']);
@@ -485,11 +533,28 @@ class _ExplorePageState extends State<ExplorePage> {
                                     ),
                                   ),
                                   onPressed: () async {
-                                    String orderId =
-                                        '192745'; //Need to replace with actual order id
-                                    orderSuccessful(orderId);
-                                    Navigator.pushReplacementNamed(
-                                        context, "/ExplorePage");
+                                    var options = {
+                                      'key': 'rzp_test_UM6tdmOpKIgWnX',
+                                      'amount': value.price * 100,
+                                      'name': 'Naniz',
+                                      'description': 'Food Delivery',
+                                      'prefill': {
+                                        'contact':
+                                            '8945529381',
+                                        'email': 'mashutoshrao@gmail.com',
+                                      },
+                                      // 'external': {
+                                      //   'wallets': ['paytm']
+                                      // },
+                                      'theme': {
+                                        'color': '0xffFE506D',
+                                      }
+                                    };
+                                    try {
+                                      _razorpay.open(options);
+                                    } catch (e) {
+                                      debugPrint(e);
+                                    }
                                   }),
                             ),
                           ),
@@ -658,165 +723,212 @@ class _ExplorePageState extends State<ExplorePage> {
                     fontFamily: "Gilroy"),
               ),
             ),
-            StreamBuilder<QuerySnapshot>(
-              stream: _database.collection("homemakers").snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasData) {
-                  List<DocumentSnapshot> temp = [];
-                  List<Map<String, dynamic>> menu = [];
+            position != null
+                ? StreamBuilder(
+                    stream: geo
+                        .collection(
+                            collectionRef: _database.collection('homemakers'))
+                        .within(
+                            center: geo.point(
+                                latitude: position.latitude,
+                                longitude: position.longitude),
+                            radius: 10,
+                            field: 'position'),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<DocumentSnapshot>> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasData) {
+                        List<DocumentSnapshot> temp = [];
+                        List<Map<String, dynamic>> menu = [];
+                        snapshot.data.every((element) {
+                          temp.add(element);
+                          return true;
+                        });
+                        if (snapshot.data.isEmpty) {
+                          return Center(
+                              child:
+                                  Text("OOPS, Looks like no one is serving!"));
+                        }
 
-                  snapshot.data.documents.every((element) {
-                    temp.add(element);
-                    return true;
-                  });
+                        temp.every((element) {
+                          for (int i = 0;
+                              i < element.data["menu"].length;
+                              i++) {
+                            menu.add({
+                              "name": element.data["name"],
+                              "item": element.data["menu"][i]
+                            });
+                          }
+                          return true;
+                        });
 
-                  temp.every((element) {
-                    for (int i = 0; i < element.data["menu"].length; i++) {
-                      menu.add({
-                        "name": element.data["name"],
-                        "item": element.data["menu"][i]
-                      });
-                    }
-                    return true;
-                  });
-
-                  return Container(
-                    // width: MediaQuery.of(context).size.width,
-                    height: 500,
-                    child: ListView.builder(
-                      controller: _controller,
-                      itemCount: menu.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        print(menu[index]);
                         return Container(
-                          margin: EdgeInsets.all(10.0),
-                          width: MediaQuery.of(context).size.width,
-                          height: 85,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10.0)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              SizedBox(width: 10),
-                              Container(
-                                width: 100,
-                                height: 70,
+                          // width: MediaQuery.of(context).size.width,
+                          height: 500,
+                          child: ListView.builder(
+                            controller: _controller,
+                            itemCount: menu.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              print(menu[index]);
+                              return Container(
+                                margin: EdgeInsets.all(10.0),
+                                width: MediaQuery.of(context).size.width,
+                                height: 85,
                                 decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            menu[index]["item"]["image"]),
-                                        fit: BoxFit.fitWidth),
-                                    borderRadius: BorderRadius.circular(15.0)),
-                              ),
-                              SizedBox(
-                                width: 10.0,
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    menu[index]["item"]["name"],
-                                    style: TextStyle(
-                                        fontFamily: "Gilroy",
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 15.0,
-                                        color: Colors.black),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    "${menu[index]["name"]}\'s Kitchen",
-                                    style: TextStyle(
-                                        fontFamily: "Gilroy",
-                                        fontSize: 13.0,
-                                        color: Colors.black),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    "₹${menu[index]["item"]["price"].toString()}/plate",
-                                    style: TextStyle(
-                                        fontFamily: "Gilroy",
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 15.0,
-                                        color: Colors.black),
-                                  )
-                                ],
-                              ),
-                              Expanded(child: SizedBox()),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    right: 10, bottom: 15),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10.0)),
+                                child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
+                                    SizedBox(width: 10),
                                     Container(
-                                      width: 20.0,
-                                      height: 20.0,
+                                      width: 100,
+                                      height: 70,
                                       decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: menu[index]["item"]
-                                                          ["veg"] ==
-                                                      true
-                                                  ? Colors.green
-                                                  : Colors.red,
-                                              width: 1.0)),
-                                      child: Center(
-                                        child: Container(
-                                          width: 10.0,
-                                          height: 10.0,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(50.0),
-                                              color: menu[index]["item"]
-                                                          ["veg"] ==
-                                                      true
-                                                  ? Colors.green
-                                                  : Colors.red),
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  menu[index]["item"]["image"]),
+                                              fit: BoxFit.fitWidth),
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                    ),
+                                    SizedBox(
+                                      width: 10.0,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          menu[index]["item"]["name"],
+                                          style: TextStyle(
+                                              fontFamily: "Gilroy",
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 15.0,
+                                              color: Colors.black),
                                         ),
+                                        SizedBox(
+                                          height: 5.0,
+                                        ),
+                                        Text(
+                                          "${menu[index]["name"]}\'s Kitchen",
+                                          style: TextStyle(
+                                              fontFamily: "Gilroy",
+                                              fontSize: 13.0,
+                                              color: Colors.black),
+                                        ),
+                                        SizedBox(
+                                          height: 5.0,
+                                        ),
+                                        Text(
+                                          "₹${menu[index]["item"]["price"].toString()}/plate",
+                                          style: TextStyle(
+                                              fontFamily: "Gilroy",
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 15.0,
+                                              color: Colors.black),
+                                        )
+                                      ],
+                                    ),
+                                    Expanded(child: SizedBox()),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 10, bottom: 15),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Container(
+                                            width: 20.0,
+                                            height: 20.0,
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: menu[index]["item"]
+                                                                ["veg"] ==
+                                                            true
+                                                        ? Colors.green
+                                                        : Colors.red,
+                                                    width: 1.0)),
+                                            child: Center(
+                                              child: Container(
+                                                width: 10.0,
+                                                height: 10.0,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50.0),
+                                                    color: menu[index]["item"]
+                                                                ["veg"] ==
+                                                            true
+                                                        ? Colors.green
+                                                        : Colors.red),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 10.0,
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Text(menu[index]["item"]["rating"]
+                                                  .toString()),
+                                              Icon(
+                                                Icons.star,
+                                                color: Color(0xffFE506D),
+                                                size: 15.0,
+                                              )
+                                            ],
+                                          )
+                                        ],
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        Text(menu[index]["item"]["rating"]
-                                            .toString()),
-                                        Icon(
-                                          Icons.star,
-                                          color: Color(0xffFE506D),
-                                          size: 15.0,
-                                        )
-                                      ],
+                                      width: 5.0,
                                     )
                                   ],
                                 ),
-                              ),
-                              SizedBox(
-                                width: 5.0,
-                              )
-                            ],
+                              );
+                            },
                           ),
                         );
-                      },
-                    ),
-                  );
-                }
-              },
-            )
+                      }
+                    },
+                  )
+                : Center(
+                    child:
+                        Text("Oops, Looks like no one is delivering near you!"),
+                  ),
           ],
         ),
       ),
     );
+  }
+  void initDynamicLink() async {
+    final PendingDynamicLinkData data =
+    await FirebaseDynamicLinks.instance.getInitialLink();
+    final Uri deepLink = data?.link;
+    if (deepLink != null) {
+      // Navigator.of(context).pushReplacementNamed("/ExplorePage",
+      //     arguments: deepLink.pathSegments);
+    }
+
+    FirebaseDynamicLinks.instance.onLink(
+        onSuccess: (PendingDynamicLinkData link) async {
+          final Uri deepLink = link?.link;
+          if (deepLink != null) {
+            log("${deepLink.pathSegments}");
+            // Navigator.of(context).pushReplacementNamed("/ExplorePage",
+            //     arguments: deepLink.pathSegments);
+          }
+        }, onError: (OnLinkErrorException e) async {
+      log("error");
+      log(e.message);
+    });
   }
 }
 

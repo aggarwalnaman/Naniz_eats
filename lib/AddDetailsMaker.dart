@@ -44,7 +44,8 @@ class _AddDetailsMakerState extends State<AddDetailsMaker> {
           'userType': "homemaker",
           'mobileno': user.phoneNumber,
           "rating": 0,
-          "delivery": _delivery
+          "delivery": _delivery,
+          "payouts":menu
         });
         firestore.collection('promotion').document(user.uid).setData({
           'promotion': menu,

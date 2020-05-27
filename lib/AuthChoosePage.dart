@@ -26,7 +26,7 @@ class _AuthChoosePageState extends State<AuthChoosePage> {
             .document(value.uid)
             .get()
             .then((document) {
-          if (document.data["userType"] == "user") { 
+          if (document.data["userType"] == "users") { 
             Firestore.instance
                 .collection("users")
                 .document(value.uid)

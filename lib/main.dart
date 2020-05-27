@@ -12,6 +12,7 @@ import 'package:econoomaccess/UserProfilePage.dart';
 import 'package:econoomaccess/VendorLocation.dart';
 import 'package:econoomaccess/analytics.dart';
 import 'package:econoomaccess/business_location.dart';
+import 'package:econoomaccess/payouts.dart';
 import 'package:econoomaccess/promotionList.dart';
 import 'package:provider/provider.dart';
 import 'favorites_screen.dart';
@@ -37,6 +38,8 @@ import 'new_item.dart';
 import 'UserAddProfilePhotoPage.dart';
 import 'MerchantOrder.dart';
 import 'MakerOnBoardPage.dart';
+import 'PromotionsPage.dart';
+import 'PromotionMealOpen.dart';
 
 void main() => runApp(MyApp());
 
@@ -162,6 +165,8 @@ class _MyAppState extends State<MyApp> {
             "/TrackOrder": (BuildContext context) => TrackOrder(),
             "/VendorLocation": (BuildContext context) => VendorLocation(),
             "/ChooseTrackOrder": (BuildContext context) => ChooseTrackOrder(),
+            "/PromotionPage": (BuildContext context) => PromotionsPage(),
+            "/PayoutPage": (BuildContext context) => Payouts(),
           },
         ),
       );
