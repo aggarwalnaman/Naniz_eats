@@ -40,12 +40,13 @@ class _ExplorePageState extends State<ExplorePage> {
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     orderSuccessful(response.orderId);
+    print("The order was successfull");
     //Add success popup
     Navigator.pushReplacementNamed(context, "/ExplorePage");
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
-    print(response.message);
+    print("There was an error");
     //Add Failure popup
     Navigator.pushReplacementNamed(context, "/ExplorePage");
   }
@@ -534,7 +535,7 @@ class _ExplorePageState extends State<ExplorePage> {
                                   ),
                                   onPressed: () async {
                                     var options = {
-                                      'key': 'rzp_test_UM6tdmOpKIgWnX',
+                                      'key': 'rzp_test_0RVqU3HILYRp5O',
                                       'amount': value.price * 100,
                                       'name': 'Naniz',
                                       'description': 'Food Delivery',
@@ -543,12 +544,6 @@ class _ExplorePageState extends State<ExplorePage> {
                                             '8945529381',
                                         'email': 'mashutoshrao@gmail.com',
                                       },
-                                      // 'external': {
-                                      //   'wallets': ['paytm']
-                                      // },
-                                      'theme': {
-                                        'color': '0xffFE506D',
-                                      }
                                     };
                                     try {
                                       _razorpay.open(options);
@@ -771,126 +766,198 @@ class _ExplorePageState extends State<ExplorePage> {
                             itemCount: menu.length,
                             itemBuilder: (BuildContext context, int index) {
                               print(menu[index]);
-                              return Container(
-                                margin: EdgeInsets.all(10.0),
-                                width: MediaQuery.of(context).size.width,
-                                height: 85,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10.0)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    SizedBox(width: 10),
-                                    Container(
-                                      width: 100,
-                                      height: 70,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  menu[index]["item"]["image"]),
-                                              fit: BoxFit.fitWidth),
-                                          borderRadius:
-                                              BorderRadius.circular(15.0)),
-                                    ),
-                                    SizedBox(
-                                      width: 10.0,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          menu[index]["item"]["name"],
-                                          style: TextStyle(
-                                              fontFamily: "Gilroy",
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 15.0,
-                                              color: Colors.black),
-                                        ),
-                                        SizedBox(
-                                          height: 5.0,
-                                        ),
-                                        Text(
-                                          "${menu[index]["name"]}\'s Kitchen",
-                                          style: TextStyle(
-                                              fontFamily: "Gilroy",
-                                              fontSize: 13.0,
-                                              color: Colors.black),
-                                        ),
-                                        SizedBox(
-                                          height: 5.0,
-                                        ),
-                                        Text(
-                                          "₹${menu[index]["item"]["price"].toString()}/plate",
-                                          style: TextStyle(
-                                              fontFamily: "Gilroy",
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 15.0,
-                                              color: Colors.black),
-                                        )
-                                      ],
-                                    ),
-                                    Expanded(child: SizedBox()),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: 10, bottom: 15),
+                              return Dismissible(
+                                key: Key(menu[index]["item"]["name"]),
+                                onDismissed: (direction) {
+                                  print(snapshot.data[index].documentID);
+                                  _database
+                                      .collection('users')
+                                      .document(user.uid)
+                                      .get()
+                                      .then((DocumentSnapshot usersnapshot) => {
+                                            if (usersnapshot.exists)
+                                              {
+                                                if (usersnapshot
+                                                        .data['current_cart'] ==
+                                                    null)
+                                                  {
+                                                    _database
+                                                        .collection('users')
+                                                        .document(uid)
+                                                        .updateData({
+                                                      'current_cart': [
+                                                        {
+                                                          'homemaker': snapshot
+                                                              .data[index]
+                                                              .documentID,
+                                                          'item': menu[index]["item"],
+                                                          'quantity': 1
+                                                        }
+                                                      ]
+                                                    })
+                                                  }
+                                                else
+                                                  {
+                                                    _database
+                                                        .collection('users')
+                                                        .document(uid)
+                                                        .updateData({
+                                                      'current_cart': FieldValue
+                                                          .arrayUnion([
+                                                        {
+                                                          'homemaker': snapshot
+                                                              .data[index]
+                                                              .documentID,
+                                                          'item': menu[index]["item"],
+                                                          'quantity': 1
+                                                        }
+                                                      ])
+                                                    })
+                                                  }
+                                              }
+                                          });
+                                },
+                                background: Container(
+                                    color: Color(0xffFE516E),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(12.0),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
                                         children: <Widget>[
-                                          Container(
-                                            width: 20.0,
-                                            height: 20.0,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: menu[index]["item"]
-                                                                ["veg"] ==
-                                                            true
-                                                        ? Colors.green
-                                                        : Colors.red,
-                                                    width: 1.0)),
-                                            child: Center(
-                                              child: Container(
-                                                width: 10.0,
-                                                height: 10.0,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50.0),
-                                                    color: menu[index]["item"]
-                                                                ["veg"] ==
-                                                            true
-                                                        ? Colors.green
-                                                        : Colors.red),
-                                              ),
-                                            ),
+                                          Text("BUY",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 25)),
+                                        ],
+                                      ),
+                                    )),
+                                child: Container(
+                                  margin: EdgeInsets.all(10.0),
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 85,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius:
+                                          BorderRadius.circular(10.0)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      SizedBox(width: 10),
+                                      Container(
+                                        width: 100,
+                                        height: 70,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: NetworkImage(menu[index]
+                                                    ["item"]["image"]),
+                                                fit: BoxFit.fitWidth),
+                                            borderRadius:
+                                                BorderRadius.circular(15.0)),
+                                      ),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            menu[index]["item"]["name"],
+                                            style: TextStyle(
+                                                fontFamily: "Gilroy",
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 15.0,
+                                                color: Colors.black),
                                           ),
                                           SizedBox(
-                                            height: 10.0,
+                                            height: 5.0,
                                           ),
-                                          Row(
-                                            children: <Widget>[
-                                              Text(menu[index]["item"]["rating"]
-                                                  .toString()),
-                                              Icon(
-                                                Icons.star,
-                                                color: Color(0xffFE506D),
-                                                size: 15.0,
-                                              )
-                                            ],
+                                          Text(
+                                            "${menu[index]["name"]}\'s Kitchen",
+                                            style: TextStyle(
+                                                fontFamily: "Gilroy",
+                                                fontSize: 13.0,
+                                                color: Colors.black),
+                                          ),
+                                          SizedBox(
+                                            height: 5.0,
+                                          ),
+                                          Text(
+                                            "₹${menu[index]["item"]["price"].toString()}/plate",
+                                            style: TextStyle(
+                                                fontFamily: "Gilroy",
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 15.0,
+                                                color: Colors.black),
                                           )
                                         ],
                                       ),
-                                    ),
-                                    SizedBox(
-                                      width: 5.0,
-                                    )
-                                  ],
+                                      Expanded(child: SizedBox()),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            right: 10, bottom: 15),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Container(
+                                              width: 20.0,
+                                              height: 20.0,
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: menu[index]["item"]
+                                                                  ["veg"] ==
+                                                              true
+                                                          ? Colors.green
+                                                          : Colors.red,
+                                                      width: 1.0)),
+                                              child: Center(
+                                                child: Container(
+                                                  width: 10.0,
+                                                  height: 10.0,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50.0),
+                                                      color: menu[index]["item"]
+                                                                  ["veg"] ==
+                                                              true
+                                                          ? Colors.green
+                                                          : Colors.red),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 10.0,
+                                            ),
+                                            Row(
+                                              children: <Widget>[
+                                                Text(menu[index]["item"]
+                                                        ["rating"]
+                                                    .toString()),
+                                                Icon(
+                                                  Icons.star,
+                                                  color: Color(0xffFE506D),
+                                                  size: 15.0,
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 5.0,
+                                      )
+                                    ],
+                                  ),
                                 ),
                               );
                             },
@@ -913,8 +980,8 @@ class _ExplorePageState extends State<ExplorePage> {
     await FirebaseDynamicLinks.instance.getInitialLink();
     final Uri deepLink = data?.link;
     if (deepLink != null) {
-      // Navigator.of(context).pushReplacementNamed("/ExplorePage",
-      //     arguments: deepLink.pathSegments);
+      Navigator.of(context).pushReplacementNamed("/ExplorePage",
+          arguments: deepLink.pathSegments);
     }
 
     FirebaseDynamicLinks.instance.onLink(
@@ -922,8 +989,8 @@ class _ExplorePageState extends State<ExplorePage> {
           final Uri deepLink = link?.link;
           if (deepLink != null) {
             log("${deepLink.pathSegments}");
-            // Navigator.of(context).pushReplacementNamed("/ExplorePage",
-            //     arguments: deepLink.pathSegments);
+            Navigator.of(context).pushReplacementNamed("/ExplorePage",
+                arguments: deepLink.pathSegments);
           }
         }, onError: (OnLinkErrorException e) async {
       log("error");

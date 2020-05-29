@@ -170,6 +170,12 @@
       "languageVersion": "2.1"
     },
     {
+      "name": "flutter_rating_bar",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_rating_bar-3.0.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.5"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///C:/src/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -494,7 +500,7 @@
       "languageVersion": "2.1"
     }
   ],
-  "generated": "2020-05-27T05:54:13.145208Z",
+  "generated": "2020-05-28T07:34:39.771271Z",
   "generator": "pub",
   "generatorVersion": "2.7.0"
 }

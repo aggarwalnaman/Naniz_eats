@@ -526,7 +526,7 @@ class _PayoutsState extends State<Payouts> {
       drawer: MakerDrawerWidget(uid: s),
       appBar: AppBar(
         iconTheme: IconThemeData(color:Colors.black),
-        backgroundColor: Colors.white70,
+        backgroundColor: Colors.grey[50],
         elevation: 0,
       ),
       // drawerEdgeDragWidth: width,

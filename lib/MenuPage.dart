@@ -37,7 +37,7 @@ class _MenuPageState extends State<MenuPage> {
           arguments: _uid);
     } else if (_selectedIndex == 2) {
     } else if (_selectedIndex == 3) {
-      // Navigator.pushReplacementNamed(context, "/ProfilePage");
+      Navigator.pushReplacementNamed(context, "/HomemakerProfilePage");
     }
   }
 

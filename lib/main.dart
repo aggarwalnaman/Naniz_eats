@@ -12,6 +12,7 @@ import 'package:econoomaccess/UserProfilePage.dart';
 import 'package:econoomaccess/VendorLocation.dart';
 import 'package:econoomaccess/analytics.dart';
 import 'package:econoomaccess/business_location.dart';
+import 'package:econoomaccess/homemaker_profile.dart';
 import 'package:econoomaccess/payouts.dart';
 import 'package:econoomaccess/promotionList.dart';
 import 'package:provider/provider.dart';
@@ -119,6 +120,9 @@ class _MyAppState extends State<MyApp> {
           home: AuthChoosePage(),
           theme: ThemeData(
             textTheme: TextTheme(
+              button: TextStyle(
+                fontFamily: "Gilroy",
+              ),
               caption: TextStyle(
                 fontFamily: "Gilroy",
               ),
@@ -167,6 +171,7 @@ class _MyAppState extends State<MyApp> {
             "/ChooseTrackOrder": (BuildContext context) => ChooseTrackOrder(),
             "/PromotionPage": (BuildContext context) => PromotionsPage(),
             "/PayoutPage": (BuildContext context) => Payouts(),
+            "/HomemakerProfilePage": (BuildContext context) => HomemakerProfile(),
           },
         ),
       );
