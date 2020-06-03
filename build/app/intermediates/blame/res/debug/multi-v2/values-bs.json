@@ -1,10 +1,27 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\Education\\Android\\FlutterExercise\\projects\\Naniz\\Econoom_Access_App-master\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-bs\\values-bs.xml",
+            "outputFile": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-bs\\values-bs.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Ashu\\.gradle\\caches\\transforms-2\\files-2.1\\447232c9411f0b1725ad025bba2d0cba\\appcompat-1.0.2\\res\\values-bs\\values-bs.xml",
+                    "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\c841577ec12f9d67cf367b38711e3924\\jetified-firebase-messaging-20.0.1\\res\\values-bs\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "207",
+                        "endColumns": "99",
+                        "endOffsets": "306"
+                    },
+                    "to": {
+                        "startLines": "47",
+                        "startColumns": "4",
+                        "startOffsets": "5527",
+                        "endColumns": "103",
+                        "endOffsets": "5626"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\447232c9411f0b1725ad025bba2d0cba\\appcompat-1.0.2\\res\\values-bs\\values-bs.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -21,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Ashu\\.gradle\\caches\\transforms-2\\files-2.1\\4a74b7965ac18bf2600b05d80bf44fa8\\jetified-play-services-basement-17.0.0\\res\\values-bs\\values.xml",
+                    "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\390eb5567795fe6ab1117b38d9cec9f1\\jetified-play-services-basement-17.0.0\\res\\values-bs\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -38,7 +55,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Ashu\\.gradle\\caches\\transforms-2\\files-2.1\\12172bd92333b24a6ca38dc2aa663cea\\play-services-base-17.0.0\\res\\values-bs\\values.xml",
+                    "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\12172bd92333b24a6ca38dc2aa663cea\\play-services-base-17.0.0\\res\\values-bs\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -55,7 +72,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Ashu\\.gradle\\caches\\transforms-2\\files-2.1\\765d948781557ca60ad60520b9d583b2\\core-1.1.0\\res\\values-bs\\values-bs.xml",
+                    "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\765d948781557ca60ad60520b9d583b2\\core-1.1.0\\res\\values-bs\\values-bs.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -69,23 +86,6 @@
                         "startOffsets": "5715",
                         "endColumns": "100",
                         "endOffsets": "5811"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Ashu\\.gradle\\caches\\transforms-2\\files-2.1\\793cc8f382a09d19ab66abae15fe9aca\\jetified-firebase-messaging-20.0.1\\res\\values-bs\\values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "207",
-                        "endColumns": "99",
-                        "endOffsets": "306"
-                    },
-                    "to": {
-                        "startLines": "47",
-                        "startColumns": "4",
-                        "startOffsets": "5527",
-                        "endColumns": "103",
-                        "endOffsets": "5626"
                     }
                 }
             ]

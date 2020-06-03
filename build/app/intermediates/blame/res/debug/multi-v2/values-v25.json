@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\Education\\Android\\FlutterExercise\\projects\\Naniz\\Econoom_Access_App-master\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v25\\values-v25.xml",
+            "outputFile": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v25\\values-v25.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Ashu\\.gradle\\caches\\transforms-2\\files-2.1\\447232c9411f0b1725ad025bba2d0cba\\appcompat-1.0.2\\res\\values-v25\\values-v25.xml",
+                    "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\447232c9411f0b1725ad025bba2d0cba\\appcompat-1.0.2\\res\\values-v25\\values-v25.xml",
                     "from": {
                         "startLines": "2,3,4,6",
                         "startColumns": "4,4,4,4",
