@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'model.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
 class EditPage extends StatefulWidget {
   @override
@@ -17,6 +20,7 @@ class _EditPageState extends State<EditPage> {
 
   var duration, name;
   var _uid;
+  var temp = [];
   String timeslot = "10AM - 12PM";
 
   Stream<QuerySnapshot> fetchProductsAsStream() {
@@ -25,6 +29,19 @@ class _EditPageState extends State<EditPage> {
         .document(_uid)
         .collection('menu')
         .snapshots();
+  }
+
+  getInventory() {
+    firestore.collection('recipe').getDocuments().then((doc) {
+      doc.documents.every((element) {
+        // setState(() {
+        print(element.data);
+        temp.add({"name": element.data["name"]});
+        // temp.add(element.data);
+        return true;
+        // });
+      });
+    });
   }
 
   void getUser() async {
@@ -44,6 +61,9 @@ class _EditPageState extends State<EditPage> {
       setState(() {
         duration = temp.data['ohours'];
         flag = !flag;
+        name = temp.data['name'];
+        duration = temp.data['ohours'];
+        _uid = user.uid;
       });
     });
   }
@@ -54,10 +74,199 @@ class _EditPageState extends State<EditPage> {
     super.initState();
     getUser();
     getData();
+    getInventory();
+  }
+
+  Widget addInventoryItem(Map<String, dynamic> meal) {
+    TextEditingController priceController = TextEditingController();
+    print(meal);
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+      //this right here
+      child: Container(
+        height: 230,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: <Widget>[
+                  SizedBox(width: 220),
+                  GestureDetector(
+                      onTap: () => Navigator.of(context).pop(),
+                      child: Icon(Icons.highlight_off))
+                ],
+              ),
+              Text(
+                "Enter Price for ${meal["name"]}",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: 'SF Pro Text',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15.0,
+                  letterSpacing: -0.8,
+                  height: 1.15,
+                ),
+              ),
+              TextFormField(
+                controller: priceController,
+                keyboardType: TextInputType.number,
+                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+                autovalidate: true,
+                validator: (value) {
+                  if (value.isNotEmpty) {
+                    if (int.parse(value) > 0) return null;
+                  }
+                  return "Enter valid no";
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: 300.0,
+                child: RaisedButton(
+                  onPressed: () {
+                    var obj = [
+                      {
+                        "name": meal["name"],
+                        "price": int.parse(priceController.text),
+                        "image": meal["image"],
+                      }
+                    ];
+                    firestore
+                        .collection("homemakers")
+                        .document(_uid)
+                        .updateData({
+                      "menu": FieldValue.arrayUnion(obj),
+                    }).whenComplete(() {
+                      print("Done");
+                      Navigator.of(context).pop();
+                    });
+                  },
+                  child: Text(
+                    "Add ${meal["name"]}",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'SF Pro Text',
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.bold,
+                      height: 1.15,
+                    ),
+                  ),
+                  color: Color(0xffFE4E74),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget inventoryItems() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          height: 300,
+          child: StreamBuilder(
+              stream:
+                  firestore.collection("homemakers").document(_uid).snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasData) {
+                  var menu = temp.where((meal) {
+                    for (int i = 0;
+                        i < snapshot.data.data["menu"].length;
+                        i++) {
+                      if (snapshot.data.data["menu"][i]["name"] == meal["name"])
+                        return false;
+                    }
+                    return true;
+                  }).toList();
+                  return ListView.builder(
+                      itemCount: menu.length,
+                      itemBuilder: (BuildContext ctxt, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                              bottom: 15.0, left: 10, right: 10),
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      "${menu[index]["name"]}",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: "Gilroy",
+                                        fontSize: 21.0,
+                                        fontWeight: FontWeight.bold,
+                                        letterSpacing: -0.8,
+                                        height: 1.15,
+                                      ),
+                                    ),
+                                    // Text(
+                                    //   "₹50/plate",
+                                    //   style: TextStyle(
+                                    //     color: Colors.black54,
+                                    //     fontFamily: "Gilroy",
+                                    //     fontSize: 13.0,
+                                    //     fontWeight: FontWeight.bold,
+                                    //     letterSpacing: -0.8,
+                                    //     height: 1.15,
+                                    //   ),
+                                    // ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 25,
+                                width: 50,
+                                child: OutlineButton(
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return addInventoryItem(menu[index]);
+                                        });
+                                  },
+                                  borderSide: BorderSide(
+                                    width: 2,
+                                    color: Color(0xffFE4E74),
+                                  ),
+                                  child: Center(
+                                      child: Icon(
+                                    Icons.add,
+                                    color: Color(0xffFE4E74),
+                                    size: 20,
+                                  )),
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      });
+                } else
+                  return Text("Text");
+              }),
+        ),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+
+    final data = MediaQuery.of(context);
+
     return Scaffold(
       bottomNavigationBar: Padding(
           padding: EdgeInsets.all(20),
@@ -517,7 +726,33 @@ class _EditPageState extends State<EditPage> {
                                             borderSide: BorderSide(
                                                 color: Color(0xffFE506D),
                                                 width: 2),
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              return showModalBottomSheet(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(30),
+                                                topRight: Radius.circular(30),
+                                              )),
+                                              context: context,
+                                              builder: (BuildContext bc) {
+                                                return Container(
+                                                  height: data.size.height / 1.5 ,
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      SizedBox(height: 40),
+                                                      Text("Add item from Inventory",
+                                                          style: TextStyle(
+                                                              fontSize: 30,
+                                                              fontWeight: FontWeight.bold)),
+                                                      SizedBox(height: 20),
+                                                      
+                                                      this.inventoryItems(),
+                                                    ],
+                                                  ),
+                                                );
+                                              }                                              
+                                              );
+                                            },
                                             shape: new RoundedRectangleBorder(
                                                 borderRadius:
                                                     new BorderRadius.circular(
