@@ -174,7 +174,7 @@ class _MyAppState extends State<MyApp> {
             "/PromotionPage": (BuildContext context) => PromotionsPage(),
             "/PayoutPage": (BuildContext context) => Payouts(),
             "/HomemakerProfilePage": (BuildContext context) => HomemakerProfile(),
-            "/RecommendedPage": (BuildContext context) => Recommended(),
+            // "/RecommendedPage": (BuildContext context) => Recommended(),
             "/AllergiesPage": (BuildContext context) => Allergies(),
           },
         ),

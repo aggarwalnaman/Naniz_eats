@@ -1,5 +1,6 @@
 import 'package:econoomaccess/UpdateMapPage.dart';
 import 'package:econoomaccess/drawer.dart';
+import 'package:econoomaccess/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -458,7 +459,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return load ? Loading() : Scaffold(
       bottomNavigationBar: Padding(
           padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
           child: SizedBox(
