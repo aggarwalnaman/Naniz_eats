@@ -1,11 +1,6 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:printing/printing.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'localization/language_constants.dart';
 import 'package:firebase_messaging/firebase_messaging.dart' as fcm;
 import 'exchange.dart';
@@ -19,12 +14,28 @@ class ProfilePage extends StatefulWidget {
   _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+class _ProfilePageState extends State<ProfilePage>
+    with SingleTickerProviderStateMixin {
   Firestore firestore = Firestore.instance;
   var temp;
   var documentName;
+  TabController controller;
   fcm.FirebaseMessaging firebaseMessaging = new fcm.FirebaseMessaging();
+  @override
+  void initState() {
+    controller = TabController(initialIndex: getIndex(), length: 3, vsync: this);
+    super.initState();
+  }
+
+  int getIndex() {
+    var h = DateTime.now().hour;
+    if (h >= 13 && h <= 16) {
+      return 1;
+    }else if (h >= 18 && h <= 21) {
+      return 2;
+    }
+    return 0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -188,8 +199,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           ],
                         ),
                       ),
-                      
-                      ProfilePageOptions(data: snapshot.data.data,docId: snapshot.data.documentID,),
+                      ProfilePageOptions(
+                        data: snapshot.data.data,
+                        docId: snapshot.data.documentID,
+                      ),
                       Text(
                         getTranslated(context, "menu"),
                         style: TextStyle(
@@ -200,167 +213,188 @@ class _ProfilePageState extends State<ProfilePage> {
                       SizedBox(
                         height: 20,
                       ),
-                      Text(
-                        "${snapshot.data.data['ohours']}",
-                        style: TextStyle(
-                          color: Color(0xffFE506D),
-                          fontFamily: "Gilroy",
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12.0,
-                        ),
-                      ),
+                      TabBar(
+                          controller: controller,
+                          labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              fontFamily: "Gilroy"),
+                          unselectedLabelStyle: TextStyle(
+                            fontWeight: FontWeight.w200,
+                            fontFamily: "Gilroy",
+                            fontSize: 12,
+                          ),
+                          labelColor: Color(0xffFE506D),
+                          indicatorColor: Color(0xffFE506D),
+                          indicatorSize: TabBarIndicatorSize.label,
+                          indicatorPadding: EdgeInsets.only(right: 40),
+                          unselectedLabelColor: Colors.black.withOpacity(0.5),
+                          labelPadding: EdgeInsets.only(right: 35),
+                          isScrollable: true,
+                          tabs: [
+                            Tab(
+                              text: "10AM - 12PM",
+                            ),
+                            Tab(text: "1PM - 4PM"),
+                            Tab(
+                              text: "6PM - 9PM",
+                            )
+                          ]),
+                      // Text(
+                      //   "${snapshot.data.data['ohours']}",
+                      //   style: TextStyle(
+                      //     color: Color(0xffFE506D),
+                      //     fontFamily: "Gilroy",
+                      //     fontWeight: FontWeight.bold,
+                      //     fontSize: 12.0,
+                      //   ),
+                      // ),
                       SizedBox(height: 30),
                       Container(
                         height: 500,
-                        child: ListView.builder(
-                          // controller: _controller,
-                          itemCount: snapshot.data.data['menu'].length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pushReplacementNamed(
-                                    '/RecipePage',
-                                    arguments: ScreenArguments(snapshot.data.documentID, snapshot.data.data['menu'][index]['name'],index));
-                              },
-                              child: Container(
-                                margin: EdgeInsets.all(5.0),
-                                width: MediaQuery.of(context).size.width,
-                                height: 85,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10.0)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    SizedBox(width: 10),
-                                    Container(
-                                      width: 100,
-                                      height: 70,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  snapshot.data.data['menu']
-                                                      [index]['image']),
-                                              fit: BoxFit.fitWidth),
-                                          borderRadius:
-                                              BorderRadius.circular(15.0)),
-                                    ),
-                                    SizedBox(
-                                      width: 10.0,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          snapshot.data.data['menu'][index]
-                                              ['name'],
-                                          style: TextStyle(
-                                              fontFamily: "Gilroy",
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 15.0,
-                                              color: Colors.black),
-                                        ),
-                                        SizedBox(
-                                          height: 5.0,
-                                        ),
-                                        Text(
-                                          "${snapshot.data.data['name']}\'s Kitchen",
-                                          style: TextStyle(
-                                              fontFamily: "Gilroy",
-                                              fontSize: 13.0,
-                                              color: Colors.black),
-                                        ),
-                                        SizedBox(
-                                          height: 5.0,
-                                        ),
-                                        Text(
-                                          "₹${snapshot.data.data['menu'][index]['price'].toString()}/plate",
-                                          style: TextStyle(
-                                              fontFamily: "Gilroy",
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 15.0,
-                                              color: Colors.black),
-                                        )
-                                      ],
-                                    ),
-                                    Expanded(child: SizedBox()),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: 10, bottom: 15),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Container(
-                                            width: 20.0,
-                                            height: 20.0,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: snapshot.data.data[
-                                                                        'menu']
-                                                                    [index]
-                                                                ['veg'] ==
-                                                            true
-                                                        ? Colors.green
-                                                        : Colors.red,
-                                                    width: 1.0)),
-                                            child: Center(
-                                              child: Container(
-                                                width: 10.0,
-                                                height: 10.0,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50.0),
-                                                    color: snapshot.data.data[
-                                                                        'menu']
-                                                                    [index]
-                                                                ['veg'] ==
-                                                            true
-                                                        ? Colors.green
-                                                        : Colors.red),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 10.0,
-                                          ),
-                                          Row(
-                                            children: <Widget>[
-                                              Text(snapshot.data
-                                                  .data['menu'][index]['rating']
-                                                  .toString()),
-                                              Icon(
-                                                Icons.star,
-                                                color: Color(0xffFE506D),
-                                                size: 15.0,
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 5.0,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
+                        child: TabBarView(controller: controller, children: [
+                          tabView(snapshot, "10AM - 12PM"),
+                          tabView(snapshot, "01PM - 04PM"),
+                          tabView(snapshot, "06PM - 09PM")
+                        ]),
+                      )
                     ],
                   );
                 }
               }),
         )),
       ),
+    );
+  }
+
+  Widget tabView(AsyncSnapshot snapshot, String time) {
+    return ListView.builder(
+      itemCount: snapshot.data.data['menu'].length,
+      itemBuilder: (BuildContext context, int index) {
+        return GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushReplacementNamed('/RecipePage',
+                arguments: ScreenArguments(snapshot.data.documentID,
+                    snapshot.data.data['menu'][index]['name'],snapshot.data.data['menu'][index]['veg'],snapshot.data.data['menu'][index]['rating'],snapshot.data.data['menu'][index]['price'],snapshot.data.data['menu'][index]['image'], index));
+          },
+          child: snapshot.data.data['menu'][index]['timeslot'] == time
+              ? Container(
+                  margin: EdgeInsets.all(5.0),
+                  width: MediaQuery.of(context).size.width,
+                  height: 85,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10.0)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(width: 10),
+                      Container(
+                        width: 100,
+                        height: 70,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    snapshot.data.data['menu'][index]['image']),
+                                fit: BoxFit.fitWidth),
+                            borderRadius: BorderRadius.circular(15.0)),
+                      ),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            snapshot.data.data['menu'][index]['name'],
+                            style: TextStyle(
+                                fontFamily: "Gilroy",
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15.0,
+                                color: Colors.black),
+                          ),
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Text(
+                            "${snapshot.data.data['name']}\'s Kitchen",
+                            style: TextStyle(
+                                fontFamily: "Gilroy",
+                                fontSize: 13.0,
+                                color: Colors.black),
+                          ),
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Text(
+                            "₹${snapshot.data.data['menu'][index]['price'].toString()}/plate",
+                            style: TextStyle(
+                                fontFamily: "Gilroy",
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15.0,
+                                color: Colors.black),
+                          )
+                        ],
+                      ),
+                      Expanded(child: SizedBox()),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10, bottom: 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              width: 20.0,
+                              height: 20.0,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: snapshot.data.data['menu'][index]
+                                                  ['veg'] ==
+                                              true
+                                          ? Colors.green
+                                          : Colors.red,
+                                      width: 1.0)),
+                              child: Center(
+                                child: Container(
+                                  width: 10.0,
+                                  height: 10.0,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50.0),
+                                      color: snapshot.data.data['menu'][index]
+                                                  ['veg'] ==
+                                              true
+                                          ? Colors.green
+                                          : Colors.red),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Text(snapshot.data.data['menu'][index]['rating']
+                                    .toString()),
+                                Icon(
+                                  Icons.star,
+                                  color: Color(0xffFE506D),
+                                  size: 15.0,
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5.0,
+                      )
+                    ],
+                  ),
+                )
+              : SizedBox(),
+        );
+      },
     );
   }
 }

@@ -8,6 +8,8 @@ import 'main.dart';
 import 'localization/language.dart';
 import 'package:flutter/cupertino.dart';
 
+bool load = false;
+
 class UserProfilePage extends StatefulWidget {
   @override
   _UserProfilePageState createState() => _UserProfilePageState();
@@ -354,6 +356,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     child: GestureDetector(
                       child: Icon(Icons.edit),
                       onTap: () {
+                        setState(() {
+                          load = true;
+                        });
                         Navigator.push(
                             context,
                             CupertinoPageRoute(
@@ -439,6 +444,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      load = true;
     });
     if (_selectedIndex == 0) {
       Navigator.pushReplacementNamed(context, "/ExplorePage");
@@ -551,6 +557,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                       onTap: () {
                         setState(() {
                           menuType = "profile";
+                          load = true;
                         });
                       },
                       child: Container(
@@ -570,6 +577,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                       onTap: () {
                         setState(() {
                           menuType = "reviews";
+                          load = true;
                         });
                       },
                       child: Container(

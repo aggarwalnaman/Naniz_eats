@@ -12,13 +12,14 @@ class PromotionsPage extends StatefulWidget {
 class _PromotionsPageState extends State<PromotionsPage> {
   String uid;
   var promotionItems;
-
+  String userName;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getUser();
   }
+
 
   getUser() {
     FirebaseAuth.instance.currentUser().then((val) {
@@ -32,6 +33,14 @@ class _PromotionsPageState extends State<PromotionsPage> {
           promotionItems = value.data["promotionItems"];
         });
       });
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    setState(() {
+      userName = ModalRoute.of(context).settings.arguments;
     });
   }
 
@@ -81,6 +90,7 @@ class _PromotionsPageState extends State<PromotionsPage> {
                               String docId = docs[docsIndex].documentID;
                               String mealName =
                                   promotions[promotionIndex]["name"];
+                              String fcmToken = docs[docsIndex]["fcm"];
                               if (promotionItems != null &&
                                   promotionItems[docId] != null &&
                                   promotionItems[docId][mealName] != null) {
@@ -93,6 +103,8 @@ class _PromotionsPageState extends State<PromotionsPage> {
                                   docId: docId,
                                   data: promotions[promotionIndex],
                                   uid: this.uid,
+                                  fcm: fcmToken,
+                                  userName: userName,
                                 );
                               }
                             } else

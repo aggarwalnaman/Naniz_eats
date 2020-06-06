@@ -36,6 +36,7 @@ class _MenuPageState extends State<MenuPage> {
       Navigator.pushReplacementNamed(context, "/MerchantOrderPage",
           arguments: _uid);
     } else if (_selectedIndex == 2) {
+      Navigator.pushReplacementNamed(context, "/RecommendedPage");
     } else if (_selectedIndex == 3) {
       Navigator.pushReplacementNamed(context, "/HomemakerProfilePage");
     }
@@ -74,13 +75,15 @@ class _MenuPageState extends State<MenuPage> {
   }
 
   Widget addInventoryItem(Map<String, dynamic> meal) {
+    var itemTimeslot;
+    var itemCategory;
     TextEditingController priceController = TextEditingController();
     print(meal);
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       //this right here
       child: Container(
-        height: 230,
+        height: 330,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
           child: Column(
@@ -96,7 +99,7 @@ class _MenuPageState extends State<MenuPage> {
                 ],
               ),
               Text(
-                "Enter Price for ${meal["name"]}",
+                "How do you want ${meal["name"]}?",
                 style: TextStyle(
                   color: Colors.black,
                   fontFamily: 'SF Pro Text',
@@ -119,7 +122,112 @@ class _MenuPageState extends State<MenuPage> {
                 },
               ),
               SizedBox(
-                height: 20,
+                height: 5,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  // height: 50.0,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12.0)),
+                  child: Center(
+                    child: DropdownButton<String>(
+                      value: itemTimeslot,
+                      hint: Text("Choose a time slot"),
+                      style: TextStyle(
+                        color: Color.fromRGBO(38, 50, 56, 0.30),
+                        fontSize: 15.0,
+                        fontFamily: "Gilroy",
+                      ),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.black45,
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          itemTimeslot = value;
+                        });
+                      },
+                      items: [
+                        DropdownMenuItem(
+                          value: "10AM - 12PM",
+                          child: Text(
+                            "10AM - 12PM",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                        DropdownMenuItem(
+                          value: "01PM - 04PM",
+                          child: Text(
+                            "01PM - 04PM",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                        DropdownMenuItem(
+                          value: "06PM - 09PM",
+                          child: Text(
+                            "06PM - 09PM",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  // height: 50.0,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12.0)),
+                  child: Center(
+                    child: DropdownButton<String>(
+                      value: itemCategory,
+                      hint: Text("Veg / Non - Veg"),
+                      style: TextStyle(
+                        color: Color.fromRGBO(38, 50, 56, 0.30),
+                        fontSize: 15.0,
+                        fontFamily: "Gilroy",
+                      ),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.black45,
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          itemCategory = value=="Veg"?true:false;
+                        });
+                      },
+                      items: [
+                        DropdownMenuItem(
+                          value: "Veg",
+                          child: Text(
+                            "Veg",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                        DropdownMenuItem(
+                          value: "Non - Veg",
+                          child: Text(
+                            "Non - Veg",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height:20
               ),
               SizedBox(
                 width: 300.0,
@@ -129,7 +237,11 @@ class _MenuPageState extends State<MenuPage> {
                       {
                         "name": meal["name"],
                         "price": int.parse(priceController.text),
-                        "image": meal["image"],
+                        "image": "https://s3-alpha-sig.figma.com/img/9768/cb29/ef4adc3714b7a54ad0fbf89560fd4013?Expires=1592179200&Signature=SzeyF3HwjBGr0eOeRTXLrmQyfaqTqqWjrgD6ewg2AbkbyWmhbuQw2Drhico1upmMuiFcHDPbF38qU~AfuUFsutvq5MLCttbdYQWxMrS2LLh6a8Pvoy5q6FAr6TR~~~FKS3~ogyx5nrzfVZ0-56b6CeaYW-wKFuWIdNHbQFTKtazv4G2FqocxdH2VNA8vOSFAYwuCqNlYlSFx5S7euiHvmzkA7IV9Ne60vmDDm433O3eyhodwd1TaDVvadyXxZHvVHScO3pdGooFJx~A4tOmFeI5PHT8hYdnV~cYPBsGwSs0EWtyGFpoTzpMpLdQXHeAZAEaSMKidkMO9HM5ZdjxwKQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
+                        "timeslot": itemTimeslot,
+                        "promoted":false,
+                        "rating":0,
+                        "veg":itemCategory
                       }
                     ];
                     firestore
@@ -509,15 +621,15 @@ class _MenuPageState extends State<MenuPage> {
                     Icons.assignment,
                     color: Color(0xffFE506D),
                   ),
-                  title: Text("Home"),
+                  title: Text("Menu"),
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.library_books, color: Colors.black),
-                  title: Text("Shop"),
+                  title: Text("Orders"),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.bookmark_border, color: Colors.black),
-                  title: Text("Shop"),
+                  icon: Icon(Icons.restaurant_menu, color: Colors.black),
+                  title: Text("Recommended"),
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.perm_identity, color: Colors.black),

@@ -10,11 +10,13 @@ import 'package:econoomaccess/ReviewOrder.dart';
 import 'package:econoomaccess/TrackOrder.dart';
 import 'package:econoomaccess/UserProfilePage.dart';
 import 'package:econoomaccess/VendorLocation.dart';
+import 'package:econoomaccess/allergies.dart';
 import 'package:econoomaccess/analytics.dart';
 import 'package:econoomaccess/business_location.dart';
 import 'package:econoomaccess/homemaker_profile.dart';
 import 'package:econoomaccess/payouts.dart';
 import 'package:econoomaccess/promotionList.dart';
+import 'package:econoomaccess/recommended.dart';
 import 'package:provider/provider.dart';
 import 'favorites_screen.dart';
 import 'chat.dart';
@@ -172,6 +174,8 @@ class _MyAppState extends State<MyApp> {
             "/PromotionPage": (BuildContext context) => PromotionsPage(),
             "/PayoutPage": (BuildContext context) => Payouts(),
             "/HomemakerProfilePage": (BuildContext context) => HomemakerProfile(),
+            "/RecommendedPage": (BuildContext context) => Recommended(),
+            "/AllergiesPage": (BuildContext context) => Allergies(),
           },
         ),
       );

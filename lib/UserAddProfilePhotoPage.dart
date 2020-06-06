@@ -1,8 +1,12 @@
+import 'package:econoomaccess/allergies.dart';
+import 'package:econoomaccess/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as Path;
+
+bool load = false;
 
 class UserAddProfilePhotoPage extends StatefulWidget {
   @override
@@ -16,7 +20,7 @@ class _UserAddProfilePhotoPageState extends State<UserAddProfilePhotoPage> {
   Widget build(BuildContext context) {
     var args = ModalRoute.of(context).settings.arguments;
 
-    return Scaffold(
+    return load ? Loading() : Scaffold(
       body: StreamBuilder(
           stream:
               Firestore.instance.collection('users').document(args).snapshots(),
@@ -165,6 +169,9 @@ class _UserAddProfilePhotoPageState extends State<UserAddProfilePhotoPage> {
                                     elevation: 0.0,
                                     child: MaterialButton(
                                       onPressed: () async {
+                                        setState(() {
+                                          load = true;
+                                        });
                                         StorageReference storageReference =
                                             FirebaseStorage.instance
                                                 .ref()

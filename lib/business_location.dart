@@ -49,7 +49,7 @@ class _BusinessLocationState extends State<BusinessLocation> {
   void _onMapCreated(GoogleMapController controller) async {
     final locData = await Location().getLocation();
     mapController = controller;
-
+    if(!mounted) return;
     setState(() {
       _markers.add(Marker(
         markerId: MarkerId("0"),

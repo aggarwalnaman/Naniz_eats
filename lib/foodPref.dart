@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:econoomaccess/SignUpUserPage.dart';
+import 'package:econoomaccess/loading.dart';
 import 'package:flutter/material.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'localization/language_constants.dart';
+
+bool load = false;
 
 class FoodPref extends StatefulWidget {
   @override
@@ -40,7 +43,7 @@ class _FoodPrefState extends State<FoodPref> {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final key = new GlobalKey<ScaffoldState>();
 
-    return Scaffold(
+    return load ? Loading() : Scaffold(
       key: key,
       appBar: AppBar(
         leading: IconButton(
@@ -192,6 +195,9 @@ class _FoodPrefState extends State<FoodPref> {
             Center(
               child: GestureDetector(
                 onTap: () async {
+                  setState(() {
+                    load = true;
+                  });
                   Map<String, bool> temp = {};
                   prefs.every((element) {
                     temp.putIfAbsent(
@@ -214,7 +220,7 @@ class _FoodPrefState extends State<FoodPref> {
                       //   duration: Duration(seconds: 2),
                       // ));
                       _auth.currentUser().then((value){
-                        Navigator.pushReplacementNamed(context, "/UserAddProfilePhotoPage",arguments: value.uid);
+                        Navigator.pushReplacementNamed(context, "/AllergiesPage");
                       });
                       
                     });
@@ -245,7 +251,10 @@ class _FoodPrefState extends State<FoodPref> {
               child: Center(
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacementNamed(context, "/ExplorePage");
+                    setState(() {
+                      load = true;
+                    });
+                    Navigator.pushReplacementNamed(context, "/AllergiesPage");
                   },
                   child: Text(
                     "Skip this step",

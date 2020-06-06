@@ -1,3 +1,4 @@
+import 'package:econoomaccess/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,6 +9,8 @@ import 'dart:async';
 import 'localization/language.dart';
 import 'localization/language_constants.dart';
 import 'main.dart';
+
+bool load=false;
 
 class UserDetailsPage extends StatefulWidget {
   @override
@@ -76,10 +79,14 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
   }
 
   nextPage() {
+
     var tempc = _cname;
     var temps = _sname;
     var cart=[];
     if (_formKey.currentState.validate()) {
+      setState(() {
+        load = true;
+      });
       _formKey.currentState.save();
       _getAddressFromLatLng();
       print(_cname + ' ' + _sname);
@@ -97,16 +104,24 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
           'current_cart': cart,
           'userType': "user",
           'mobileno' : user.phoneNumber,
-        }).whenComplete(() {
+        }).whenComplete((){
+
           Navigator.pushReplacementNamed(context, "/FoodPrefPage");
         });
       });
+    }
+    else{
+      setState(() {
+        load=false;
+        
+      });
+      print("Error fill the correct details");
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return load ? Loading() : Scaffold(
       backgroundColor: Color(0xffF9F9F9),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -476,8 +491,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                       //     shape: CircleBorder(),
                       //   ),
                       // ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(120, 20, 120, 0),
+                      Center(
                         child: GestureDetector(
                           onTap: () {
                             nextPage();
@@ -508,6 +522,9 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                         child: Center(
                           child: GestureDetector(
                             onTap: () {
+                              setState(() {
+                                load = true;
+                              });
                               Navigator.pushReplacementNamed(
                                   context, "/ExplorePage");
                             },

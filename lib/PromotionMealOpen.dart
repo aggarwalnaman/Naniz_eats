@@ -11,7 +11,10 @@ class _PromotionMealOpenState extends State<PromotionMealOpen> {
 
   @override
   void didChangeDependencies() {
-    data = ModalRoute.of(context).settings.arguments as List<String>;
+    data = ModalRoute
+        .of(context)
+        .settings
+        .arguments as List<String>;
     super.didChangeDependencies();
   }
 
@@ -39,8 +42,14 @@ class _PromotionMealOpenState extends State<PromotionMealOpen> {
               return false;
             });
             return Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height,
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 3),
               child: Column(
                 children: <Widget>[
@@ -99,10 +108,10 @@ class _RecipeQuantityWidgetState extends State<RecipeQuantityWidget> {
                   onPressed: (quantity == 1)
                       ? null
                       : () {
-                          setState(() {
-                            quantity--;
-                          });
-                        },
+                    setState(() {
+                      quantity--;
+                    });
+                  },
                 ),
                 Text("$quantity"),
                 IconButton(
@@ -134,16 +143,31 @@ class _RecipeQuantityWidgetState extends State<RecipeQuantityWidget> {
             //TODO add payment logic
             print("${widget.uid}");
             DocumentReference docRef =
-                Firestore.instance.collection("users").document(widget.uid);
+            Firestore.instance.collection("users").document(widget.uid);
             Firestore.instance.runTransaction((transaction) async {
               DocumentSnapshot docSnap = await docRef.get();
-              var obj = docSnap.data["promotionItems"];
+              Map obj = docSnap.data["promotionItems"];
               obj[widget.homeMaker][widget.mealName]["earned"] += quantity *
                   int.parse(obj[widget.homeMaker][widget.mealName]["cut"]);
               obj[widget.homeMaker][widget.mealName]["orders"] += quantity;
-              transaction.update(docRef, {
-                "promotionItems": obj,
-              });
+
+              if (obj[widget.homeMaker][widget.mealName]["orders"] ==
+                  int.parse(obj[widget.homeMaker][widget.mealName]["requiredOrders"])) {
+                var wallet = obj[widget.homeMaker][widget.mealName]["earned"];
+                obj[widget.homeMaker].remove(widget.mealName);
+                transaction.update(docRef, {
+                  "promotionItems": obj,
+                  "wallet": FieldValue.increment(wallet),
+                });
+                Firestore.instance.collection("homemakers").document(
+                    widget.homeMaker).updateData({
+                'promotedCut': FieldValue.increment(wallet),
+                });
+              } else {
+                transaction.update(docRef, {
+                  "promotionItems": obj,
+                });
+              }
             });
           },
         ),

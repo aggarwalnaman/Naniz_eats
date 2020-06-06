@@ -47,8 +47,11 @@ class DrawerWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(50)),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(50),
-                            child: Image.network(
+                            child: streamSnapshot.data['image']!=null?Image.network(
                               streamSnapshot.data['image'],
+                              fit: BoxFit.fitWidth,
+                            ):Image.network(
+                              'https://firebasestorage.googleapis.com/v0/b/naniz-team.appspot.com/o/defaultImage.jpg?alt=media&token=8fa0d735-4c1b-4ef4-bb3f-a9f45bd31d83',
                               fit: BoxFit.fitWidth,
                             ),
                           ),
@@ -132,7 +135,7 @@ class DrawerWidget extends StatelessWidget {
                         ),
                         onTap: (){
                           Navigator.of(context)
-                              .pushReplacementNamed("/PromotionPage");
+                              .pushReplacementNamed("/PromotionPage",arguments: streamSnapshot.data["name"]);
                         },
                       ),
                       ListTile(

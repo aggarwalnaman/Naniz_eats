@@ -26,7 +26,7 @@ class _HomemakerProfileState extends State<HomemakerProfile> {
       Navigator.pushReplacementNamed(context, "/MerchantOrderPage",
           arguments: _uid);
     } else if (_selectedIndex == 2) {
-      
+      Navigator.pushReplacementNamed(context, "/RecommendedPage");
     }
   }
 
@@ -70,15 +70,15 @@ class _HomemakerProfileState extends State<HomemakerProfile> {
                   title: Text("Home"),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.library_books, color: Color(0xffFE506D)),
+                  icon: Icon(Icons.library_books, color: Colors.black),
                   title: Text("Shop"),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.bookmark_border, color: Colors.black),
+                  icon: Icon(Icons.restaurant_menu, color: Colors.black),
                   title: Text("Shop"),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.perm_identity, color: Colors.black),
+                  icon: Icon(Icons.perm_identity, color: Color(0xffFE506D)),
                   title: Text("Profile"),
                 )
               ],

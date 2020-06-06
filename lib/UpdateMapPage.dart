@@ -49,7 +49,7 @@ class _UpdateMapPageState extends State<UpdateMapPage> {
   void _onMapCreated(GoogleMapController controller) async {
     final locData = await Location().getLocation();
     mapController = controller;
-
+    if(!mounted) return;
     setState(() {
       _markers.add(Marker(
         markerId: MarkerId("0"),
@@ -91,7 +91,9 @@ class _UpdateMapPageState extends State<UpdateMapPage> {
     return Scaffold(
         backgroundColor: Color(0xffE5E5E5),
         appBar: AppBar(
-          leading: Icon(Icons.arrow_back_ios, color: Colors.black),
+          leading: GestureDetector(child: Icon(Icons.arrow_back_ios, color: Colors.black),onTap: (){
+            Navigator.pushReplacementNamed(context, "/UserProfilePage");
+          },),
           backgroundColor: Color(0xffE5E5E5),
           elevation: 0,
         ),

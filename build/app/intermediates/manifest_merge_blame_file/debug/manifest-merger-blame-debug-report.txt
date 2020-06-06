@@ -264,126 +264,157 @@
 146                android:value="com.google.firebase.components.ComponentRegistrar" />
 146-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\fd68efa81c2b8da8d9b8d6caa1349342\firebase-iid-20.0.1\AndroidManifest.xml:34:17-82
 147        </service>
-148        <service android:name="io.flutter.plugins.firebasemessaging.FlutterFirebaseMessagingService" >
-148-->[:firebase_messaging] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
-148-->[:firebase_messaging] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:8:18-101
-149            <intent-filter>
-149-->[:firebase_messaging] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:29
-150                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-150-->[:firebase_messaging] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-78
-150-->[:firebase_messaging] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:25-75
-151            </intent-filter>
-152        </service>
-153
-154        <provider
-154-->[:printing] D:\Flutter apps\naniz eats\Naniz_eats\build\printing\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-16:20
-155            android:name="net.nfet.flutter.printing.PrintFileProvider"
-155-->[:printing] D:\Flutter apps\naniz eats\Naniz_eats\build\printing\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-71
-156            android:authorities="nl.blueavenue.econoomaccess.flutter.printing"
-156-->[:printing] D:\Flutter apps\naniz eats\Naniz_eats\build\printing\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-68
-157            android:exported="false"
-157-->[:printing] D:\Flutter apps\naniz eats\Naniz_eats\build\printing\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-37
-158            android:grantUriPermissions="true" >
-158-->[:printing] D:\Flutter apps\naniz eats\Naniz_eats\build\printing\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-47
-159            <meta-data
-159-->[:image_picker] D:\Flutter apps\naniz eats\Naniz_eats\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-18:75
-160                android:name="android.support.FILE_PROVIDER_PATHS"
-160-->[:image_picker] D:\Flutter apps\naniz eats\Naniz_eats\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:17:17-67
-161                android:resource="@xml/flutter_printing_file_paths" />
-161-->[:image_picker] D:\Flutter apps\naniz eats\Naniz_eats\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:18:17-72
-162        </provider> <!-- Needs to be explicitly declared on P+ -->
-163        <uses-library
-163-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5b06b64c6ac4d0bda415105554fc4d41\play-services-maps-17.0.0\AndroidManifest.xml:33:9-35:40
-164            android:name="org.apache.http.legacy"
-164-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5b06b64c6ac4d0bda415105554fc4d41\play-services-maps-17.0.0\AndroidManifest.xml:34:13-50
-165            android:required="false" />
-165-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5b06b64c6ac4d0bda415105554fc4d41\play-services-maps-17.0.0\AndroidManifest.xml:35:13-37
-166
-167        <activity
-167-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\b5a21f8918c15fdefd49988c6f252d59\jetified-firebase-auth-17.0.0\AndroidManifest.xml:24:9-31:50
-168            android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
-168-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\b5a21f8918c15fdefd49988c6f252d59\jetified-firebase-auth-17.0.0\AndroidManifest.xml:25:13-85
-169            android:excludeFromRecents="true"
-169-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\b5a21f8918c15fdefd49988c6f252d59\jetified-firebase-auth-17.0.0\AndroidManifest.xml:26:13-46
-170            android:exported="true"
-170-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\b5a21f8918c15fdefd49988c6f252d59\jetified-firebase-auth-17.0.0\AndroidManifest.xml:27:13-36
-171            android:launchMode="singleTask"
-171-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\b5a21f8918c15fdefd49988c6f252d59\jetified-firebase-auth-17.0.0\AndroidManifest.xml:28:13-44
-172            android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
-172-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\b5a21f8918c15fdefd49988c6f252d59\jetified-firebase-auth-17.0.0\AndroidManifest.xml:29:13-102
-173            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-173-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\b5a21f8918c15fdefd49988c6f252d59\jetified-firebase-auth-17.0.0\AndroidManifest.xml:30:13-72
-174        <!--
-175             FirebaseMessagingService performs security checks at runtime,
-176             but set to not exported to explicitly avoid allowing another app to call it.
-177        -->
-178        <service
-178-->[com.google.firebase:firebase-messaging:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\c841577ec12f9d67cf367b38711e3924\jetified-firebase-messaging-20.0.1\AndroidManifest.xml:28:9-34:19
-179            android:name="com.google.firebase.messaging.FirebaseMessagingService"
-179-->[com.google.firebase:firebase-messaging:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\c841577ec12f9d67cf367b38711e3924\jetified-firebase-messaging-20.0.1\AndroidManifest.xml:29:13-82
-180            android:exported="false" >
-180-->[com.google.firebase:firebase-messaging:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\c841577ec12f9d67cf367b38711e3924\jetified-firebase-messaging-20.0.1\AndroidManifest.xml:30:13-37
-181            <intent-filter android:priority="-500" >
-181-->[:firebase_messaging] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:29
-182                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-182-->[:firebase_messaging] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-78
-182-->[:firebase_messaging] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:25-75
-183            </intent-filter>
-184        </service>
-185
-186        <receiver
-186-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\fd68efa81c2b8da8d9b8d6caa1349342\firebase-iid-20.0.1\AndroidManifest.xml:37:9-44:20
-187            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
-187-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\fd68efa81c2b8da8d9b8d6caa1349342\firebase-iid-20.0.1\AndroidManifest.xml:38:13-78
-188            android:exported="true"
-188-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\fd68efa81c2b8da8d9b8d6caa1349342\firebase-iid-20.0.1\AndroidManifest.xml:39:13-36
-189            android:permission="com.google.android.c2dm.permission.SEND" >
-189-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\fd68efa81c2b8da8d9b8d6caa1349342\firebase-iid-20.0.1\AndroidManifest.xml:40:13-73
-190            <intent-filter>
-190-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\fd68efa81c2b8da8d9b8d6caa1349342\firebase-iid-20.0.1\AndroidManifest.xml:41:13-43:29
-191                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-191-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\fd68efa81c2b8da8d9b8d6caa1349342\firebase-iid-20.0.1\AndroidManifest.xml:42:17-81
-191-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\fd68efa81c2b8da8d9b8d6caa1349342\firebase-iid-20.0.1\AndroidManifest.xml:42:25-78
-192            </intent-filter>
-193        </receiver>
-194
-195        <activity
-195-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\12172bd92333b24a6ca38dc2aa663cea\play-services-base-17.0.0\AndroidManifest.xml:23:9-26:75
-196            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-196-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\12172bd92333b24a6ca38dc2aa663cea\play-services-base-17.0.0\AndroidManifest.xml:24:13-79
-197            android:exported="false"
-197-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\12172bd92333b24a6ca38dc2aa663cea\play-services-base-17.0.0\AndroidManifest.xml:25:13-37
-198            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-198-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\12172bd92333b24a6ca38dc2aa663cea\play-services-base-17.0.0\AndroidManifest.xml:26:13-72
-199
-200        <provider
-200-->[com.google.firebase:firebase-common:19.3.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5eb63337bdfba44c072da69e037a528a\jetified-firebase-common-19.3.0\AndroidManifest.xml:26:9-30:39
-201            android:name="com.google.firebase.provider.FirebaseInitProvider"
-201-->[com.google.firebase:firebase-common:19.3.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5eb63337bdfba44c072da69e037a528a\jetified-firebase-common-19.3.0\AndroidManifest.xml:27:13-77
-202            android:authorities="nl.blueavenue.econoomaccess.firebaseinitprovider"
-202-->[com.google.firebase:firebase-common:19.3.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5eb63337bdfba44c072da69e037a528a\jetified-firebase-common-19.3.0\AndroidManifest.xml:28:13-72
-203            android:exported="false"
-203-->[com.google.firebase:firebase-common:19.3.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5eb63337bdfba44c072da69e037a528a\jetified-firebase-common-19.3.0\AndroidManifest.xml:29:13-37
-204            android:initOrder="100" />
-204-->[com.google.firebase:firebase-common:19.3.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5eb63337bdfba44c072da69e037a528a\jetified-firebase-common-19.3.0\AndroidManifest.xml:30:13-36
-205
-206        <meta-data
-206-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\390eb5567795fe6ab1117b38d9cec9f1\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
-207            android:name="com.google.android.gms.version"
-207-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\390eb5567795fe6ab1117b38d9cec9f1\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
-208            android:value="@integer/google_play_services_version" />
-208-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\390eb5567795fe6ab1117b38d9cec9f1\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
-209
-210        <receiver android:name="com.razorpay.RzpTokenReceiver" >
-210-->[com.razorpay:checkout:1.5.16] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\931aa2f6bc8e58037635a1c9b69e119a\checkout-1.5.16\AndroidManifest.xml:12:9-16:20
-210-->[com.razorpay:checkout:1.5.16] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\931aa2f6bc8e58037635a1c9b69e119a\checkout-1.5.16\AndroidManifest.xml:12:19-63
-211            <intent-filter>
-211-->[com.razorpay:checkout:1.5.16] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\931aa2f6bc8e58037635a1c9b69e119a\checkout-1.5.16\AndroidManifest.xml:13:13-15:29
-212                <action android:name="rzp.device_token.share" />
-212-->[com.razorpay:checkout:1.5.16] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\931aa2f6bc8e58037635a1c9b69e119a\checkout-1.5.16\AndroidManifest.xml:14:17-65
-212-->[com.razorpay:checkout:1.5.16] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\931aa2f6bc8e58037635a1c9b69e119a\checkout-1.5.16\AndroidManifest.xml:14:25-62
-213            </intent-filter>
-214        </receiver>
-215    </application>
+148
+149        <activity
+149-->[:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-11:47
+150            android:name="com.pichillilorenzo.flutter_inappwebview.InAppBrowser.InAppBrowserActivity"
+150-->[:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-102
+151            android:configChanges="orientation|screenSize"
+151-->[:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-59
+152            android:theme="@style/AppTheme" />
+152-->[:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-44
+153        <activity
+153-->[:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:12:9-15:55
+154            android:name="com.pichillilorenzo.flutter_inappwebview.ChromeCustomTabs.ChromeCustomTabsActivity"
+154-->[:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-110
+155            android:configChanges="orientation|screenSize"
+155-->[:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-59
+156            android:theme="@style/ThemeTransparent" />
+156-->[:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-52
+157
+158        <receiver android:name="com.pichillilorenzo.flutter_inappwebview.ChromeCustomTabs.ActionBroadcastReceiver" />
+158-->[:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:17:9-118
+158-->[:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:17:19-115
+159
+160        <service android:name="io.flutter.plugins.firebasemessaging.FlutterFirebaseMessagingService" >
+160-->[:firebase_messaging] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
+160-->[:firebase_messaging] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:8:18-101
+161            <intent-filter>
+161-->[:firebase_messaging] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:29
+162                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+162-->[:firebase_messaging] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-78
+162-->[:firebase_messaging] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:25-75
+163            </intent-filter>
+164        </service>
+165
+166        <activity
+166-->[:url_launcher] D:\Flutter apps\naniz eats\Naniz_eats\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-11:74
+167            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+167-->[:url_launcher] D:\Flutter apps\naniz eats\Naniz_eats\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-74
+168            android:exported="false"
+168-->[:url_launcher] D:\Flutter apps\naniz eats\Naniz_eats\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-37
+169            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+169-->[:url_launcher] D:\Flutter apps\naniz eats\Naniz_eats\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-71
+170
+171        <provider
+171-->[:printing] D:\Flutter apps\naniz eats\Naniz_eats\build\printing\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-16:20
+172            android:name="net.nfet.flutter.printing.PrintFileProvider"
+172-->[:printing] D:\Flutter apps\naniz eats\Naniz_eats\build\printing\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-71
+173            android:authorities="nl.blueavenue.econoomaccess.flutter.printing"
+173-->[:printing] D:\Flutter apps\naniz eats\Naniz_eats\build\printing\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-68
+174            android:exported="false"
+174-->[:printing] D:\Flutter apps\naniz eats\Naniz_eats\build\printing\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-37
+175            android:grantUriPermissions="true" >
+175-->[:printing] D:\Flutter apps\naniz eats\Naniz_eats\build\printing\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-47
+176            <meta-data
+176-->[:image_picker] D:\Flutter apps\naniz eats\Naniz_eats\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-18:75
+177                android:name="android.support.FILE_PROVIDER_PATHS"
+177-->[:image_picker] D:\Flutter apps\naniz eats\Naniz_eats\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:17:17-67
+178                android:resource="@xml/flutter_printing_file_paths" />
+178-->[:image_picker] D:\Flutter apps\naniz eats\Naniz_eats\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:18:17-72
+179        </provider> <!-- Needs to be explicitly declared on P+ -->
+180        <uses-library
+180-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5b06b64c6ac4d0bda415105554fc4d41\play-services-maps-17.0.0\AndroidManifest.xml:33:9-35:40
+181            android:name="org.apache.http.legacy"
+181-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5b06b64c6ac4d0bda415105554fc4d41\play-services-maps-17.0.0\AndroidManifest.xml:34:13-50
+182            android:required="false" />
+182-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5b06b64c6ac4d0bda415105554fc4d41\play-services-maps-17.0.0\AndroidManifest.xml:35:13-37
+183
+184        <activity
+184-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\b5a21f8918c15fdefd49988c6f252d59\jetified-firebase-auth-17.0.0\AndroidManifest.xml:24:9-31:50
+185            android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
+185-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\b5a21f8918c15fdefd49988c6f252d59\jetified-firebase-auth-17.0.0\AndroidManifest.xml:25:13-85
+186            android:excludeFromRecents="true"
+186-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\b5a21f8918c15fdefd49988c6f252d59\jetified-firebase-auth-17.0.0\AndroidManifest.xml:26:13-46
+187            android:exported="true"
+187-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\b5a21f8918c15fdefd49988c6f252d59\jetified-firebase-auth-17.0.0\AndroidManifest.xml:27:13-36
+188            android:launchMode="singleTask"
+188-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\b5a21f8918c15fdefd49988c6f252d59\jetified-firebase-auth-17.0.0\AndroidManifest.xml:28:13-44
+189            android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
+189-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\b5a21f8918c15fdefd49988c6f252d59\jetified-firebase-auth-17.0.0\AndroidManifest.xml:29:13-102
+190            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+190-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\b5a21f8918c15fdefd49988c6f252d59\jetified-firebase-auth-17.0.0\AndroidManifest.xml:30:13-72
+191        <!--
+192             FirebaseMessagingService performs security checks at runtime,
+193             but set to not exported to explicitly avoid allowing another app to call it.
+194        -->
+195        <service
+195-->[com.google.firebase:firebase-messaging:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\c841577ec12f9d67cf367b38711e3924\jetified-firebase-messaging-20.0.1\AndroidManifest.xml:28:9-34:19
+196            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+196-->[com.google.firebase:firebase-messaging:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\c841577ec12f9d67cf367b38711e3924\jetified-firebase-messaging-20.0.1\AndroidManifest.xml:29:13-82
+197            android:exported="false" >
+197-->[com.google.firebase:firebase-messaging:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\c841577ec12f9d67cf367b38711e3924\jetified-firebase-messaging-20.0.1\AndroidManifest.xml:30:13-37
+198            <intent-filter android:priority="-500" >
+198-->[:firebase_messaging] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:29
+199                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+199-->[:firebase_messaging] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-78
+199-->[:firebase_messaging] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:25-75
+200            </intent-filter>
+201        </service>
+202
+203        <receiver
+203-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\fd68efa81c2b8da8d9b8d6caa1349342\firebase-iid-20.0.1\AndroidManifest.xml:37:9-44:20
+204            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+204-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\fd68efa81c2b8da8d9b8d6caa1349342\firebase-iid-20.0.1\AndroidManifest.xml:38:13-78
+205            android:exported="true"
+205-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\fd68efa81c2b8da8d9b8d6caa1349342\firebase-iid-20.0.1\AndroidManifest.xml:39:13-36
+206            android:permission="com.google.android.c2dm.permission.SEND" >
+206-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\fd68efa81c2b8da8d9b8d6caa1349342\firebase-iid-20.0.1\AndroidManifest.xml:40:13-73
+207            <intent-filter>
+207-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\fd68efa81c2b8da8d9b8d6caa1349342\firebase-iid-20.0.1\AndroidManifest.xml:41:13-43:29
+208                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+208-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\fd68efa81c2b8da8d9b8d6caa1349342\firebase-iid-20.0.1\AndroidManifest.xml:42:17-81
+208-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\fd68efa81c2b8da8d9b8d6caa1349342\firebase-iid-20.0.1\AndroidManifest.xml:42:25-78
+209            </intent-filter>
+210        </receiver>
+211
+212        <activity
+212-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\12172bd92333b24a6ca38dc2aa663cea\play-services-base-17.0.0\AndroidManifest.xml:23:9-26:75
+213            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+213-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\12172bd92333b24a6ca38dc2aa663cea\play-services-base-17.0.0\AndroidManifest.xml:24:13-79
+214            android:exported="false"
+214-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\12172bd92333b24a6ca38dc2aa663cea\play-services-base-17.0.0\AndroidManifest.xml:25:13-37
+215            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+215-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\12172bd92333b24a6ca38dc2aa663cea\play-services-base-17.0.0\AndroidManifest.xml:26:13-72
 216
-217</manifest>
+217        <provider
+217-->[com.google.firebase:firebase-common:19.3.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5eb63337bdfba44c072da69e037a528a\jetified-firebase-common-19.3.0\AndroidManifest.xml:26:9-30:39
+218            android:name="com.google.firebase.provider.FirebaseInitProvider"
+218-->[com.google.firebase:firebase-common:19.3.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5eb63337bdfba44c072da69e037a528a\jetified-firebase-common-19.3.0\AndroidManifest.xml:27:13-77
+219            android:authorities="nl.blueavenue.econoomaccess.firebaseinitprovider"
+219-->[com.google.firebase:firebase-common:19.3.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5eb63337bdfba44c072da69e037a528a\jetified-firebase-common-19.3.0\AndroidManifest.xml:28:13-72
+220            android:exported="false"
+220-->[com.google.firebase:firebase-common:19.3.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5eb63337bdfba44c072da69e037a528a\jetified-firebase-common-19.3.0\AndroidManifest.xml:29:13-37
+221            android:initOrder="100" />
+221-->[com.google.firebase:firebase-common:19.3.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5eb63337bdfba44c072da69e037a528a\jetified-firebase-common-19.3.0\AndroidManifest.xml:30:13-36
+222
+223        <meta-data
+223-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\390eb5567795fe6ab1117b38d9cec9f1\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
+224            android:name="com.google.android.gms.version"
+224-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\390eb5567795fe6ab1117b38d9cec9f1\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
+225            android:value="@integer/google_play_services_version" />
+225-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\390eb5567795fe6ab1117b38d9cec9f1\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
+226
+227        <receiver android:name="com.razorpay.RzpTokenReceiver" >
+227-->[com.razorpay:checkout:1.5.16] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\931aa2f6bc8e58037635a1c9b69e119a\checkout-1.5.16\AndroidManifest.xml:12:9-16:20
+227-->[com.razorpay:checkout:1.5.16] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\931aa2f6bc8e58037635a1c9b69e119a\checkout-1.5.16\AndroidManifest.xml:12:19-63
+228            <intent-filter>
+228-->[com.razorpay:checkout:1.5.16] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\931aa2f6bc8e58037635a1c9b69e119a\checkout-1.5.16\AndroidManifest.xml:13:13-15:29
+229                <action android:name="rzp.device_token.share" />
+229-->[com.razorpay:checkout:1.5.16] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\931aa2f6bc8e58037635a1c9b69e119a\checkout-1.5.16\AndroidManifest.xml:14:17-65
+229-->[com.razorpay:checkout:1.5.16] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\931aa2f6bc8e58037635a1c9b69e119a\checkout-1.5.16\AndroidManifest.xml:14:25-62
+230            </intent-filter>
+231        </receiver>
+232    </application>
+233
+234</manifest>

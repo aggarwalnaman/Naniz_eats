@@ -1,9 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:geolocator/geolocator.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final Firestore firestore = Firestore.instance;
@@ -167,8 +168,15 @@ class VendorLocationState extends State<VendorLocation> {
                     color: Colors.white,
                     textColor: Color(0xffFE506D),
                     padding: EdgeInsets.all(16.0),
-                    onPressed: () {
-                      //To Navigate
+                    onPressed: () async {
+                      Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+                      String url = 'https://www.google.com/maps/dir/api=1&origin=${position.latitude},${position.longitude}&destination=${_position.target.latitude},${_position.target.longitude}&dir_action=navigate';
+                      if(await canLaunch(url)){
+                        launch(url);
+                        }
+                        else{
+                          print("$url can't be launched");
+                        }
                     },
                     child: Text(
                       "Navigate",

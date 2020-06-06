@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\url_launcher\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
+        "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\e91dc08e955cc2e95069b0110f99683d\\core-1.0.0\\res\\layout-v21\\notification_template_custom_big.xml"
+    },
+    {
+        "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\url_launcher\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
+        "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\e91dc08e955cc2e95069b0110f99683d\\core-1.0.0\\res\\layout-v21\\notification_action.xml"
+    },
+    {
+        "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\url_launcher\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\e91dc08e955cc2e95069b0110f99683d\\core-1.0.0\\res\\layout-v21\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\url_launcher\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\e91dc08e955cc2e95069b0110f99683d\\core-1.0.0\\res\\layout-v21\\notification_action_tombstone.xml"
+    }
+]

@@ -10,8 +10,16 @@ import 'package:provider/provider.dart';
 import 'exchange.dart';
 import 'ExistingOrder.dart';
 
+String dishName;
+var itemImage;
+var itemCategory;
+var itemRating;
+var itemPrice;
+
 class RecipeScreen extends StatelessWidget {
-  String dishName;
+  // String dishName;
+
+  static const routeName = '/recipe-screen';
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   Firestore firestore = Firestore.instance;
@@ -76,6 +84,10 @@ class RecipeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenArguments args = ModalRoute.of(context).settings.arguments;
     dishName = args.item;
+    itemCategory = args.veg;
+    itemRating = args.rating;
+    itemPrice = args.price;
+    itemImage = args.image;
 
     return Scaffold(
       appBar: AppBar(
@@ -142,7 +154,6 @@ class _RecipeQuantityWidgetState extends State<RecipeQuantityWidget> {
     );
   }
 }
-
 
 class DishDetail extends StatefulWidget {
   final List<dynamic> ingredients;
@@ -291,24 +302,48 @@ class _DishDetailState extends State<DishDetail> {
               GestureDetector(
                 onTap: () async {
                   if (review.text != "" && rating != 0) {
-
                     await _auth.currentUser().then((val) {
                       Firestore.instance
                           .collection("users")
                           .document(val.uid)
                           .get()
                           .then((value) {
-                            Firestore.instance
-                        .collection("homemakers")
-                        .document(widget.homemaker)
-                        .collection("reviews")
-                        .add({"text": review.text,
-                          "username":value.data['name']
+                        Firestore.instance
+                            .collection("homemakers")
+                            .document(widget.homemaker)
+                            .collection("reviews")
+                            .document(dishName)
+                            .setData({
+                          '$dishName': FieldValue.arrayUnion([
+                            {
+                              "text": review.text,
+                              "username": value.data['name'],
+                              "rating": rating
+                            }
+                          ]),
+                          'name': dishName,
+                          'price': itemPrice,
+                          'rating': itemRating,
+                          'veg': itemCategory,
+                          'image': itemImage,
                         });
-                          });
-                      
+                      });
                     });
-                    
+
+                    if (rating == 5.0) {
+                      Firestore.instance
+                          .collection("homemakers")
+                          .document(widget.homemaker)
+                          .get()
+                          .then((value) {
+                        int review5Star = value.data['5StarReviews'];
+                        Firestore.instance
+                            .collection("homemakers")
+                            .document(widget.homemaker)
+                            .updateData({"5StarReviews": review5Star + 1});
+                      });
+                    }
+
                     Firestore.instance
                         .collection("homemakers")
                         .document(widget.homemaker)
@@ -356,7 +391,10 @@ class _DishDetailState extends State<DishDetail> {
                           end: Alignment.bottomCenter,
                           colors: [Color(0xffFF6530), Color(0xffFE4E74)])),
                   child: Center(
-                    child: Text("Submit"),
+                    child: Text(
+                      "Submit",
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               )
@@ -512,7 +550,14 @@ Widget firestoreRecipe(
                         textColor: Colors.white,
                         onPressed: () {
                           callback(
-                              ScreenArguments(homemaker, recipeText, itemIndex),
+                              ScreenArguments(
+                                  homemaker,
+                                  recipeText,
+                                  itemCategory,
+                                  itemRating,
+                                  itemPrice,
+                                  itemImage,
+                                  itemIndex),
                               1);
                         },
                       ),
@@ -533,29 +578,34 @@ Widget firestoreRecipe(
                         ),
                         onPressed: () async {
                           FirebaseAuth.instance
-                                    .currentUser()
-                                    .then((value) async{
-                                  if (value != null) {
-                                    bool val = await callback(
-                                        ScreenArguments(homemaker, recipeText,itemIndex),
-                                        Provider.of<QuantityModel>(context)
-                                            .quantity);
-                                    if (val == true) {
-                                      Navigator.pushReplacementNamed(
-                                          context, '/ExplorePage');
-                                    } else {
-                                      print("Waiting");
-                                    }
-                                  } else {
-                                    Navigator.push(
-                                        context,
-                                        CupertinoPageRoute(
-                                            builder: (context) =>
-                                                AuthChoosePage()));
-                                    Fluttertoast.showToast(
-                                        msg: "Please Login to continue");
-                                  }
-                                });
+                              .currentUser()
+                              .then((value) async {
+                            if (value != null) {
+                              bool val = await callback(
+                                  ScreenArguments(
+                                      homemaker,
+                                      recipeText,
+                                      itemCategory,
+                                      itemRating,
+                                      itemPrice,
+                                      itemImage,
+                                      itemIndex),
+                                  Provider.of<QuantityModel>(context).quantity);
+                              if (val == true) {
+                                Navigator.pushReplacementNamed(
+                                    context, '/ExplorePage');
+                              } else {
+                                print("Waiting");
+                              }
+                            } else {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) => AuthChoosePage()));
+                              Fluttertoast.showToast(
+                                  msg: "Please Login to continue");
+                            }
+                          });
                         },
                       ),
                     ],

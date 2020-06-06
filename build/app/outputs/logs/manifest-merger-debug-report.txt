@@ -6,28 +6,31 @@ INJECTED from D:\Flutter apps\naniz eats\Naniz_eats\android\app\src\main\Android
 INJECTED from D:\Flutter apps\naniz eats\Naniz_eats\android\app\src\main\AndroidManifest.xml:1:1-46:12
 MERGED from D:\Flutter apps\naniz eats\Naniz_eats\android\app\src\main\AndroidManifest.xml:1:1-46:12
 MERGED from [:location] D:\Flutter apps\naniz eats\Naniz_eats\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-10:12
-MERGED from [:path_provider] D:\Flutter apps\naniz eats\Naniz_eats\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
-MERGED from [:path_provider_macos] D:\Flutter apps\naniz eats\Naniz_eats\build\path_provider_macos\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:razorpay_flutter] D:\Flutter apps\naniz eats\Naniz_eats\build\razorpay_flutter\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-14:12
 MERGED from [:image_picker] D:\Flutter apps\naniz eats\Naniz_eats\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-22:12
 MERGED from [:flutter_plugin_android_lifecycle] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:geoflutterfire] D:\Flutter apps\naniz eats\Naniz_eats\build\geoflutterfire\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:cloud_firestore] D:\Flutter apps\naniz eats\Naniz_eats\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
+MERGED from [:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-20:12
 MERGED from [:geolocator] D:\Flutter apps\naniz eats\Naniz_eats\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:google_api_availability] D:\Flutter apps\naniz eats\Naniz_eats\build\google_api_availability\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:firebase_auth] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:geocoder] D:\Flutter apps\naniz eats\Naniz_eats\build\geocoder\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:firebase_database] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:firebase_storage] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_storage\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
+MERGED from [:permission_handler] D:\Flutter apps\naniz eats\Naniz_eats\build\permission_handler\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:google_maps_flutter] D:\Flutter apps\naniz eats\Naniz_eats\build\google_maps_flutter\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:shared_preferences] D:\Flutter apps\naniz eats\Naniz_eats\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:firebase_messaging] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-20:12
 MERGED from [:firebase_dynamic_links] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_dynamic_links\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-17:12
 MERGED from [:firebase_core] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:shared_preferences_macos] D:\Flutter apps\naniz eats\Naniz_eats\build\shared_preferences_macos\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:url_launcher] D:\Flutter apps\naniz eats\Naniz_eats\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-14:12
+MERGED from [:url_launcher_web] D:\Flutter apps\naniz eats\Naniz_eats\build\url_launcher_web\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:fluttertoast] D:\Flutter apps\naniz eats\Naniz_eats\build\fluttertoast\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:location_permissions] D:\Flutter apps\naniz eats\Naniz_eats\build\location_permissions\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:printing] D:\Flutter apps\naniz eats\Naniz_eats\build\printing\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-19:12
+MERGED from [:speech_recognition] D:\Flutter apps\naniz eats\Naniz_eats\build\speech_recognition\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.multidex:multidex:2.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5fc3fee7c271862c68f6fe7fadbd7329\multidex-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5b06b64c6ac4d0bda415105554fc4d41\play-services-maps-17.0.0\AndroidManifest.xml:17:1-38:12
 MERGED from [androidx.appcompat:appcompat:1.0.2] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\447232c9411f0b1725ad025bba2d0cba\appcompat-1.0.2\AndroidManifest.xml:17:1-22:12
@@ -50,6 +53,8 @@ MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] C:\Users
 MERGED from [com.google.android.gms:play-services-stats:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\34784142a427c219547ded4cbf6dd159\play-services-stats-17.0.0\AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\390eb5567795fe6ab1117b38d9cec9f1\jetified-play-services-basement-17.0.0\AndroidManifest.xml:17:1-28:12
 MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\779b60f5242a005b81b37780996fa281\fragment-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.webkit:webkit:1.2.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5b416ce7d4e356d688b3bc0954ff36c2\webkit-1.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.browser:browser:1.2.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\3042138f714113bf5f322cb18a1b566f\browser-1.2.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\ee25d720612b40c57018322dfe798e5c\vectordrawable-animated-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\68fcc338d691b61000e523d2da36aef7\legacy-support-core-ui-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\c9e152cc6a117c2feb3d0923b83af22d\legacy-support-core-utils-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -71,8 +76,8 @@ MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\naman\.gradle\cache
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\8153e1608a3f39975ee3e6872f219f0a\lifecycle-viewmodel-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.firebase:firebase-components:16.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\304f6ff08575681b93ff0d9f76ca064a\jetified-firebase-components-16.0.0\AndroidManifest.xml:15:1-23:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\0ff3fb14a005817bd6ffd0a1f54bbab2\versionedparcelable-1.1.0\AndroidManifest.xml:17:1-27:12
-MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\8c7a0a4e53912a5bedae762d32fbfc3f\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\6495dbd7f5fd0643b0d70ffa2e3be2d3\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\8c7a0a4e53912a5bedae762d32fbfc3f\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\fc1c49fd88466ec8afc9b0e080051146\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.print:print:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\54892eee929906e169d64ad24cacecaf\print-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.razorpay:checkout:1.5.16] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\931aa2f6bc8e58037635a1c9b69e119a\checkout-1.5.16\AndroidManifest.xml:2:1-32:12
@@ -118,6 +123,8 @@ MERGED from [:image_picker] D:\Flutter apps\naniz eats\Naniz_eats\build\image_pi
 MERGED from [:image_picker] D:\Flutter apps\naniz eats\Naniz_eats\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:10:5-20:19
 MERGED from [:cloud_firestore] D:\Flutter apps\naniz eats\Naniz_eats\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-13:19
 MERGED from [:cloud_firestore] D:\Flutter apps\naniz eats\Naniz_eats\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-13:19
+MERGED from [:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-18:19
+MERGED from [:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-18:19
 MERGED from [:firebase_auth] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-13:19
 MERGED from [:firebase_auth] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-13:19
 MERGED from [:firebase_database] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-13:19
@@ -130,6 +137,8 @@ MERGED from [:firebase_dynamic_links] D:\Flutter apps\naniz eats\Naniz_eats\buil
 MERGED from [:firebase_dynamic_links] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_dynamic_links\intermediates\library_manifest\debug\AndroidManifest.xml:9:5-15:19
 MERGED from [:firebase_core] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-13:19
 MERGED from [:firebase_core] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-13:19
+MERGED from [:url_launcher] D:\Flutter apps\naniz eats\Naniz_eats\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-12:19
+MERGED from [:url_launcher] D:\Flutter apps\naniz eats\Naniz_eats\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-12:19
 MERGED from [:printing] D:\Flutter apps\naniz eats\Naniz_eats\build\printing\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-17:19
 MERGED from [:printing] D:\Flutter apps\naniz eats\Naniz_eats\build\printing\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-17:19
 MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5b06b64c6ac4d0bda415105554fc4d41\play-services-maps-17.0.0\AndroidManifest.xml:30:5-36:19
@@ -250,10 +259,6 @@ INJECTED from D:\Flutter apps\naniz eats\Naniz_eats\android\app\src\main\Android
 INJECTED from D:\Flutter apps\naniz eats\Naniz_eats\android\app\src\main\AndroidManifest.xml
 MERGED from [:location] D:\Flutter apps\naniz eats\Naniz_eats\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:location] D:\Flutter apps\naniz eats\Naniz_eats\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:path_provider] D:\Flutter apps\naniz eats\Naniz_eats\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:path_provider] D:\Flutter apps\naniz eats\Naniz_eats\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:path_provider_macos] D:\Flutter apps\naniz eats\Naniz_eats\build\path_provider_macos\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [:path_provider_macos] D:\Flutter apps\naniz eats\Naniz_eats\build\path_provider_macos\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:razorpay_flutter] D:\Flutter apps\naniz eats\Naniz_eats\build\razorpay_flutter\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:razorpay_flutter] D:\Flutter apps\naniz eats\Naniz_eats\build\razorpay_flutter\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:image_picker] D:\Flutter apps\naniz eats\Naniz_eats\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
@@ -264,6 +269,8 @@ MERGED from [:geoflutterfire] D:\Flutter apps\naniz eats\Naniz_eats\build\geoflu
 MERGED from [:geoflutterfire] D:\Flutter apps\naniz eats\Naniz_eats\build\geoflutterfire\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:cloud_firestore] D:\Flutter apps\naniz eats\Naniz_eats\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:cloud_firestore] D:\Flutter apps\naniz eats\Naniz_eats\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:geolocator] D:\Flutter apps\naniz eats\Naniz_eats\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:geolocator] D:\Flutter apps\naniz eats\Naniz_eats\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:google_api_availability] D:\Flutter apps\naniz eats\Naniz_eats\build\google_api_availability\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
@@ -276,6 +283,8 @@ MERGED from [:firebase_database] D:\Flutter apps\naniz eats\Naniz_eats\build\fir
 MERGED from [:firebase_database] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_database\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_storage] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_storage\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:firebase_storage] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_storage\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:permission_handler] D:\Flutter apps\naniz eats\Naniz_eats\build\permission_handler\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:permission_handler] D:\Flutter apps\naniz eats\Naniz_eats\build\permission_handler\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:google_maps_flutter] D:\Flutter apps\naniz eats\Naniz_eats\build\google_maps_flutter\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:google_maps_flutter] D:\Flutter apps\naniz eats\Naniz_eats\build\google_maps_flutter\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:shared_preferences] D:\Flutter apps\naniz eats\Naniz_eats\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
@@ -288,12 +297,18 @@ MERGED from [:firebase_core] D:\Flutter apps\naniz eats\Naniz_eats\build\firebas
 MERGED from [:firebase_core] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:shared_preferences_macos] D:\Flutter apps\naniz eats\Naniz_eats\build\shared_preferences_macos\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:shared_preferences_macos] D:\Flutter apps\naniz eats\Naniz_eats\build\shared_preferences_macos\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher] D:\Flutter apps\naniz eats\Naniz_eats\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher] D:\Flutter apps\naniz eats\Naniz_eats\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_web] D:\Flutter apps\naniz eats\Naniz_eats\build\url_launcher_web\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_web] D:\Flutter apps\naniz eats\Naniz_eats\build\url_launcher_web\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:fluttertoast] D:\Flutter apps\naniz eats\Naniz_eats\build\fluttertoast\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:fluttertoast] D:\Flutter apps\naniz eats\Naniz_eats\build\fluttertoast\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:location_permissions] D:\Flutter apps\naniz eats\Naniz_eats\build\location_permissions\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:location_permissions] D:\Flutter apps\naniz eats\Naniz_eats\build\location_permissions\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:printing] D:\Flutter apps\naniz eats\Naniz_eats\build\printing\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:printing] D:\Flutter apps\naniz eats\Naniz_eats\build\printing\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:speech_recognition] D:\Flutter apps\naniz eats\Naniz_eats\build\speech_recognition\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-44
+MERGED from [:speech_recognition] D:\Flutter apps\naniz eats\Naniz_eats\build\speech_recognition\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-44
 MERGED from [androidx.multidex:multidex:2.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5fc3fee7c271862c68f6fe7fadbd7329\multidex-2.0.0\AndroidManifest.xml:20:5-43
 MERGED from [androidx.multidex:multidex:2.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5fc3fee7c271862c68f6fe7fadbd7329\multidex-2.0.0\AndroidManifest.xml:20:5-43
 MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5b06b64c6ac4d0bda415105554fc4d41\play-services-maps-17.0.0\AndroidManifest.xml:20:5-44
@@ -338,6 +353,10 @@ MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\nama
 MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\390eb5567795fe6ab1117b38d9cec9f1\jetified-play-services-basement-17.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\779b60f5242a005b81b37780996fa281\fragment-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\779b60f5242a005b81b37780996fa281\fragment-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.webkit:webkit:1.2.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5b416ce7d4e356d688b3bc0954ff36c2\webkit-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.webkit:webkit:1.2.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\5b416ce7d4e356d688b3bc0954ff36c2\webkit-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.browser:browser:1.2.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\3042138f714113bf5f322cb18a1b566f\browser-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.browser:browser:1.2.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\3042138f714113bf5f322cb18a1b566f\browser-1.2.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\ee25d720612b40c57018322dfe798e5c\vectordrawable-animated-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\ee25d720612b40c57018322dfe798e5c\vectordrawable-animated-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\68fcc338d691b61000e523d2da36aef7\legacy-support-core-ui-1.0.0\AndroidManifest.xml:20:5-44
@@ -380,10 +399,10 @@ MERGED from [com.google.firebase:firebase-components:16.0.0] C:\Users\naman\.gra
 MERGED from [com.google.firebase:firebase-components:16.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\304f6ff08575681b93ff0d9f76ca064a\jetified-firebase-components-16.0.0\AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\0ff3fb14a005817bd6ffd0a1f54bbab2\versionedparcelable-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\0ff3fb14a005817bd6ffd0a1f54bbab2\versionedparcelable-1.1.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\8c7a0a4e53912a5bedae762d32fbfc3f\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\8c7a0a4e53912a5bedae762d32fbfc3f\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\6495dbd7f5fd0643b0d70ffa2e3be2d3\interpolator-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\6495dbd7f5fd0643b0d70ffa2e3be2d3\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\8c7a0a4e53912a5bedae762d32fbfc3f\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\8c7a0a4e53912a5bedae762d32fbfc3f\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\fc1c49fd88466ec8afc9b0e080051146\documentfile-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\fc1c49fd88466ec8afc9b0e080051146\documentfile-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.print:print:1.0.0] C:\Users\naman\.gradle\caches\transforms-2\files-2.1\54892eee929906e169d64ad24cacecaf\print-1.0.0\AndroidManifest.xml:20:5-44
@@ -500,6 +519,26 @@ ADDED from [:cloud_firestore] D:\Flutter apps\naniz eats\Naniz_eats\build\cloud_
 		ADDED from [:cloud_firestore] D:\Flutter apps\naniz eats\Naniz_eats\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
 	android:name
 		ADDED from [:cloud_firestore] D:\Flutter apps\naniz eats\Naniz_eats\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-133
+activity#com.pichillilorenzo.flutter_inappwebview.InAppBrowser.InAppBrowserActivity
+ADDED from [:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-11:47
+	android:configChanges
+		ADDED from [:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-59
+	android:theme
+		ADDED from [:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-44
+	android:name
+		ADDED from [:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-102
+activity#com.pichillilorenzo.flutter_inappwebview.ChromeCustomTabs.ChromeCustomTabsActivity
+ADDED from [:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:12:9-15:55
+	android:configChanges
+		ADDED from [:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-59
+	android:theme
+		ADDED from [:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-52
+	android:name
+		ADDED from [:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-110
+receiver#com.pichillilorenzo.flutter_inappwebview.ChromeCustomTabs.ActionBroadcastReceiver
+ADDED from [:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:17:9-118
+	android:name
+		ADDED from [:flutter_inappwebview] D:\Flutter apps\naniz eats\Naniz_eats\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:17:19-115
 meta-data#com.google.firebase.components:io.flutter.plugins.firebaseauth.FlutterFirebaseAppRegistrar
 ADDED from [:firebase_auth] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
 	android:value
@@ -546,6 +585,14 @@ ADDED from [:firebase_core] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase
 		ADDED from [:firebase_core] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
 	android:name
 		ADDED from [:firebase_core] D:\Flutter apps\naniz eats\Naniz_eats\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-123
+activity#io.flutter.plugins.urllauncher.WebViewActivity
+ADDED from [:url_launcher] D:\Flutter apps\naniz eats\Naniz_eats\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-11:74
+	android:exported
+		ADDED from [:url_launcher] D:\Flutter apps\naniz eats\Naniz_eats\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-37
+	android:theme
+		ADDED from [:url_launcher] D:\Flutter apps\naniz eats\Naniz_eats\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-71
+	android:name
+		ADDED from [:url_launcher] D:\Flutter apps\naniz eats\Naniz_eats\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-74
 provider#net.nfet.flutter.printing.PrintFileProvider
 ADDED from [:printing] D:\Flutter apps\naniz eats\Naniz_eats\build\printing\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-16:20
 	android:grantUriPermissions

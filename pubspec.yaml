@@ -39,10 +39,10 @@ dependencies:
   fluttertoast: ^4.0.1
   pdf: 
   printing: ^3.3.1
-  path_provider:
+  # path_provider:
   http:
   provider: ^3.1.0
-  shared_preferences: ^0.5.3+4 
+  shared_preferences: ^0.5.7+3
   firebase_messaging:
   floating_bottom_navigation_bar: ^1.0.2
   image_picker:
@@ -53,6 +53,13 @@ dependencies:
   firebase_dynamic_links: ^0.5.1
   dotted_border: ^1.0.5
   flutter_rating_bar: ^3.0.1+1
+  url_launcher: ^5.4.10
+  youtube_player_flutter:
+  font_awesome_flutter:
+  speech_recognition: ^0.3.0+1
+  permission_handler: ^5.0.0+hotfix.8
+  flutter_spinkit: "^4.1.2"
+
 
 dev_dependencies:
   flutter_test:

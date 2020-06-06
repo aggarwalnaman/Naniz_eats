@@ -30,6 +30,7 @@ class _MerchantOrderState extends State<MerchantOrder> {
     if (_selectedIndex == 0) {
       Navigator.pushReplacementNamed(context, "/MenuPage");
     } else if (_selectedIndex == 2) {
+      Navigator.pushReplacementNamed(context, "/RecommendedPage");
     } else if (_selectedIndex == 3) {
       Navigator.pushReplacementNamed(context, "/HomemakerProfilePage");
     }
@@ -61,7 +62,7 @@ class _MerchantOrderState extends State<MerchantOrder> {
                   title: Text("Shop"),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.bookmark_border, color: Colors.black),
+                  icon: Icon(Icons.restaurant_menu, color: Colors.black),
                   title: Text("Shop"),
                 ),
                 BottomNavigationBarItem(

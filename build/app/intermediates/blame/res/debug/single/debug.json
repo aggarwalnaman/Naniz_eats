@@ -112,6 +112,10 @@
         "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\765d948781557ca60ad60520b9d583b2\\core-1.1.0\\res\\drawable-xhdpi-v4\\notification_bg_low_normal.9.png"
     },
     {
+        "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\menu_menu_main.xml.flat",
+        "source": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\flutter_inappwebview\\intermediates\\packaged_res\\debug\\menu\\menu_main.xml"
+    },
+    {
         "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\drawable-v21_abc_edit_text_material.xml.flat",
         "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\447232c9411f0b1725ad025bba2d0cba\\appcompat-1.0.2\\res\\drawable-v21\\abc_edit_text_material.xml"
     },
@@ -572,6 +576,10 @@
         "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\447232c9411f0b1725ad025bba2d0cba\\appcompat-1.0.2\\res\\drawable-mdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png"
     },
     {
+        "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\layout_browser_actions_context_menu_page.xml.flat",
+        "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\3042138f714113bf5f322cb18a1b566f\\browser-1.2.0\\res\\layout\\browser_actions_context_menu_page.xml"
+    },
+    {
         "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_ic_star_black_16dp.png.flat",
         "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\447232c9411f0b1725ad025bba2d0cba\\appcompat-1.0.2\\res\\drawable-xhdpi-v4\\abc_ic_star_black_16dp.png"
     },
@@ -680,6 +688,10 @@
         "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\447232c9411f0b1725ad025bba2d0cba\\appcompat-1.0.2\\res\\layout\\abc_expanded_menu_layout.xml"
     },
     {
+        "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\drawable_floating_action_mode_shape.xml.flat",
+        "source": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\flutter_inappwebview\\intermediates\\packaged_res\\debug\\drawable\\floating_action_mode_shape.xml"
+    },
+    {
         "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_textfield_activated_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\447232c9411f0b1725ad025bba2d0cba\\appcompat-1.0.2\\res\\drawable-hdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png"
     },
@@ -734,6 +746,10 @@
     {
         "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_textfield_search_default_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\447232c9411f0b1725ad025bba2d0cba\\appcompat-1.0.2\\res\\drawable-mdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\layout_activity_web_view.xml.flat",
+        "source": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\flutter_inappwebview\\intermediates\\packaged_res\\debug\\layout\\activity_web_view.xml"
     },
     {
         "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\drawable_abc_btn_default_mtrl_shape.xml.flat",
@@ -876,6 +892,10 @@
         "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\447232c9411f0b1725ad025bba2d0cba\\appcompat-1.0.2\\res\\drawable\\abc_seekbar_thumb_material.xml"
     },
     {
+        "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\xml_provider_paths.xml.flat",
+        "source": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\flutter_inappwebview\\intermediates\\packaged_res\\debug\\xml\\provider_paths.xml"
+    },
+    {
         "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_textfield_activated_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\447232c9411f0b1725ad025bba2d0cba\\appcompat-1.0.2\\res\\drawable-mdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png"
     },
@@ -986,6 +1006,10 @@
     {
         "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\layout_abc_search_dropdown_item_icons_2line.xml.flat",
         "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\447232c9411f0b1725ad025bba2d0cba\\appcompat-1.0.2\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
+    },
+    {
+        "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\layout_floating_action_mode_item.xml.flat",
+        "source": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\flutter_inappwebview\\intermediates\\packaged_res\\debug\\layout\\floating_action_mode_item.xml"
     },
     {
         "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_cab_background_top_mtrl_alpha.9.png.flat",
@@ -1134,6 +1158,10 @@
     {
         "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_btn_radio_to_on_mtrl_000.png.flat",
         "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\447232c9411f0b1725ad025bba2d0cba\\appcompat-1.0.2\\res\\drawable-xxxhdpi-v4\\abc_btn_radio_to_on_mtrl_000.png"
+    },
+    {
+        "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\layout_chrome_custom_tabs_layout.xml.flat",
+        "source": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\flutter_inappwebview\\intermediates\\packaged_res\\debug\\layout\\chrome_custom_tabs_layout.xml"
     },
     {
         "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_text_select_handle_middle_mtrl_light.png.flat",
@@ -1348,6 +1376,10 @@
         "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\447232c9411f0b1725ad025bba2d0cba\\appcompat-1.0.2\\res\\drawable-mdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png"
     },
     {
+        "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\xml_image_share_filepaths.xml.flat",
+        "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\3042138f714113bf5f322cb18a1b566f\\browser-1.2.0\\res\\xml\\image_share_filepaths.xml"
+    },
+    {
         "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_notification_bg_normal_pressed.9.png.flat",
         "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\765d948781557ca60ad60520b9d583b2\\core-1.1.0\\res\\drawable-mdpi-v4\\notification_bg_normal_pressed.9.png"
     },
@@ -1454,6 +1486,10 @@
     {
         "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\drawable_abc_list_selector_background_transition_holo_light.xml.flat",
         "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\447232c9411f0b1725ad025bba2d0cba\\appcompat-1.0.2\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\layout_browser_actions_context_menu_row.xml.flat",
+        "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\3042138f714113bf5f322cb18a1b566f\\browser-1.2.0\\res\\layout\\browser_actions_context_menu_row.xml"
     },
     {
         "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\drawable_abc_ic_search_api_material.xml.flat",
@@ -1598,6 +1634,10 @@
     {
         "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
         "source": "C:\\Users\\naman\\.gradle\\caches\\transforms-2\\files-2.1\\447232c9411f0b1725ad025bba2d0cba\\appcompat-1.0.2\\res\\drawable-xxxhdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\layout_floating_action_mode.xml.flat",
+        "source": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\flutter_inappwebview\\intermediates\\packaged_res\\debug\\layout\\floating_action_mode.xml"
     },
     {
         "merged": "D:\\Flutter apps\\naniz eats\\Naniz_eats\\build\\app\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_list_longpressed_holo.9.png.flat",

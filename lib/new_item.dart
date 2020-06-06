@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:econoomaccess/addRecipe.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as Path;
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 
 class NewItem extends StatefulWidget {
   @override
@@ -494,60 +496,62 @@ class _NewItemState extends State<NewItem> {
     firestore.collection('homemakers').document(this._uid).updateData({
       "menu": FieldValue.arrayUnion(list),
     }).whenComplete(() {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return Dialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0)), //this right here
-              child: Container(
-                height: 160,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        "Added ${name} Successfully",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'SF Pro Text',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15.0,
-                          letterSpacing: -0.8,
-                          height: 1.15,
-                        ),
-                      ),
-                      SizedBox(height: 40),
-                      SizedBox(
-                        width: 320.0,
-                        child: RaisedButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text(
-                            "CONTINUE >",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'SF Pro Text',
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.bold,
-                              height: 1.15,
-                            ),
-                          ),
-                          color: Color(0xffFE4E74),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
+      return Navigator.push(
+    context, CupertinoPageRoute(builder: (context) => AddRecipe(name: this.name,uid: this._uid,)));
+      // showDialog(
+      //     context: context,
+      //     builder: (BuildContext context) {
+      //       return Dialog(
+      //         shape: RoundedRectangleBorder(
+      //             borderRadius: BorderRadius.circular(20.0)), //this right here
+      //         child: Container(
+      //           height: 160,
+      //           child: Padding(
+      //             padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+      //             child: Column(
+      //               mainAxisAlignment: MainAxisAlignment.start,
+      //               crossAxisAlignment: CrossAxisAlignment.start,
+      //               children: [
+      //                 SizedBox(
+      //                   height: 20,
+      //                 ),
+      //                 Text(
+      //                   "Added ${name} Successfully",
+      //                   style: TextStyle(
+      //                     color: Colors.black,
+      //                     fontFamily: 'SF Pro Text',
+      //                     fontWeight: FontWeight.bold,
+      //                     fontSize: 15.0,
+      //                     letterSpacing: -0.8,
+      //                     height: 1.15,
+      //                   ),
+      //                 ),
+      //                 SizedBox(height: 40),
+      //                 SizedBox(
+      //                   width: 320.0,
+      //                   child: RaisedButton(
+      //                     onPressed: () {
+      //                       Navigator.of(context).pop();
+      //                     },
+      //                     child: Text(
+      //                       "CONTINUE >",
+      //                       style: TextStyle(
+      //                         color: Colors.white,
+      //                         fontFamily: 'SF Pro Text',
+      //                         fontSize: 15.0,
+      //                         fontWeight: FontWeight.bold,
+      //                         height: 1.15,
+      //                       ),
+      //                     ),
+      //                     color: Color(0xffFE4E74),
+      //                   ),
+      //                 ),
+      //               ],
+      //             ),
+      //           ),
+      //         ),
+      //       );
+      //     });
     });
   }
 }

@@ -1,3 +1,4 @@
+import 'package:econoomaccess/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,6 +12,8 @@ import 'package:location/location.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:geocoder/geocoder.dart';
 import 'SignUpMakerPage.dart';
+
+bool load = false;
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -78,11 +81,17 @@ class _SignUpPageState extends State<SignUpPage> {
           .get()
           .then((value) {
         if (value.data == null) {
+          setState(() {
+            load = true;
+          });
           Navigator.pushAndRemoveUntil(
               context,
               CupertinoPageRoute(builder: (context) => OnBoardPage()),
               (route) => false);
         } else {
+          setState(() {
+            load = false;
+          });
           Navigator.pushAndRemoveUntil(
               context,
               CupertinoPageRoute(builder: (context) => ExplorePage()),
@@ -142,7 +151,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return load ? Loading() : Scaffold(
       body: Stack(
         children: <Widget>[
           Container(
@@ -216,6 +225,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       elevation: 0.0,
                       child: MaterialButton(
                         onPressed: () {
+                          setState(() {
+                            load=true;
+                          });
                           //Implement login functionality.
                           _auth.verifyPhoneNumber(
                               phoneNumber: "+91" + mobNo.text,

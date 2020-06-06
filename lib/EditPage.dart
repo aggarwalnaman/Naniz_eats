@@ -78,13 +78,15 @@ class _EditPageState extends State<EditPage> {
   }
 
   Widget addInventoryItem(Map<String, dynamic> meal) {
+    var itemTimeslot;
+    var itemCategory;
     TextEditingController priceController = TextEditingController();
     print(meal);
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       //this right here
       child: Container(
-        height: 230,
+        height: 330,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
           child: Column(
@@ -100,7 +102,7 @@ class _EditPageState extends State<EditPage> {
                 ],
               ),
               Text(
-                "Enter Price for ${meal["name"]}",
+                "How do you want ${meal["name"]}?",
                 style: TextStyle(
                   color: Colors.black,
                   fontFamily: 'SF Pro Text',
@@ -123,7 +125,112 @@ class _EditPageState extends State<EditPage> {
                 },
               ),
               SizedBox(
-                height: 20,
+                height: 5,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  // height: 50.0,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12.0)),
+                  child: Center(
+                    child: DropdownButton<String>(
+                      value: itemTimeslot,
+                      hint: Text("Choose a time slot"),
+                      style: TextStyle(
+                        color: Color.fromRGBO(38, 50, 56, 0.30),
+                        fontSize: 15.0,
+                        fontFamily: "Gilroy",
+                      ),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.black45,
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          itemTimeslot = value;
+                        });
+                      },
+                      items: [
+                        DropdownMenuItem(
+                          value: "10AM - 12PM",
+                          child: Text(
+                            "10AM - 12PM",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                        DropdownMenuItem(
+                          value: "01PM - 04PM",
+                          child: Text(
+                            "01PM - 04PM",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                        DropdownMenuItem(
+                          value: "06PM - 09PM",
+                          child: Text(
+                            "06PM - 09PM",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  // height: 50.0,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12.0)),
+                  child: Center(
+                    child: DropdownButton<String>(
+                      value: itemCategory,
+                      hint: Text("Veg / Non - Veg"),
+                      style: TextStyle(
+                        color: Color.fromRGBO(38, 50, 56, 0.30),
+                        fontSize: 15.0,
+                        fontFamily: "Gilroy",
+                      ),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.black45,
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          itemCategory = value=="Veg"?true:false;
+                        });
+                      },
+                      items: [
+                        DropdownMenuItem(
+                          value: "Veg",
+                          child: Text(
+                            "Veg",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                        DropdownMenuItem(
+                          value: "Non - Veg",
+                          child: Text(
+                            "Non - Veg",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height:20
               ),
               SizedBox(
                 width: 300.0,
@@ -133,7 +240,11 @@ class _EditPageState extends State<EditPage> {
                       {
                         "name": meal["name"],
                         "price": int.parse(priceController.text),
-                        "image": meal["image"],
+                        "image": "https://s3-alpha-sig.figma.com/img/9768/cb29/ef4adc3714b7a54ad0fbf89560fd4013?Expires=1592179200&Signature=SzeyF3HwjBGr0eOeRTXLrmQyfaqTqqWjrgD6ewg2AbkbyWmhbuQw2Drhico1upmMuiFcHDPbF38qU~AfuUFsutvq5MLCttbdYQWxMrS2LLh6a8Pvoy5q6FAr6TR~~~FKS3~ogyx5nrzfVZ0-56b6CeaYW-wKFuWIdNHbQFTKtazv4G2FqocxdH2VNA8vOSFAYwuCqNlYlSFx5S7euiHvmzkA7IV9Ne60vmDDm433O3eyhodwd1TaDVvadyXxZHvVHScO3pdGooFJx~A4tOmFeI5PHT8hYdnV~cYPBsGwSs0EWtyGFpoTzpMpLdQXHeAZAEaSMKidkMO9HM5ZdjxwKQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
+                        "timeslot": itemTimeslot,
+                        "promoted":false,
+                        "rating":0,
+                        "veg":itemCategory
                       }
                     ];
                     firestore
@@ -264,7 +375,6 @@ class _EditPageState extends State<EditPage> {
 
   @override
   Widget build(BuildContext context) {
-
     final data = MediaQuery.of(context);
 
     return Scaffold(
@@ -728,30 +838,35 @@ class _EditPageState extends State<EditPage> {
                                                 width: 2),
                                             onPressed: () {
                                               return showModalBottomSheet(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(30),
-                                                topRight: Radius.circular(30),
-                                              )),
-                                              context: context,
-                                              builder: (BuildContext bc) {
-                                                return Container(
-                                                  height: data.size.height / 1.5 ,
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      SizedBox(height: 40),
-                                                      Text("Add item from Inventory",
-                                                          style: TextStyle(
-                                                              fontSize: 30,
-                                                              fontWeight: FontWeight.bold)),
-                                                      SizedBox(height: 20),
-                                                      
-                                                      this.inventoryItems(),
-                                                    ],
-                                                  ),
-                                                );
-                                              }                                              
-                                              );
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(30),
+                                                    topRight:
+                                                        Radius.circular(30),
+                                                  )),
+                                                  context: context,
+                                                  builder: (BuildContext bc) {
+                                                    return Container(
+                                                      height: data.size.height /
+                                                          1.5,
+                                                      child: Column(
+                                                        children: <Widget>[
+                                                          SizedBox(height: 40),
+                                                          Text(
+                                                              "Add item from Inventory",
+                                                              style: TextStyle(
+                                                                  fontSize: 30,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                          SizedBox(height: 30),
+                                                          this.inventoryItems(),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  });
                                             },
                                             shape: new RoundedRectangleBorder(
                                                 borderRadius:
@@ -780,9 +895,9 @@ class _EditPageState extends State<EditPage> {
     TextEditingController itemname = new TextEditingController();
     TextEditingController itemPrice = new TextEditingController();
     String itemTimeslot;
-    var veg=snap.data.data["menu"][index]["veg"];
-    var image=snap.data.data["menu"][index]["image"];
-    var rating=snap.data.data["menu"][index]["rating"];
+    var veg = snap.data.data["menu"][index]["veg"];
+    var image = snap.data.data["menu"][index]["image"];
+    var rating = snap.data.data["menu"][index]["rating"];
     itemname.text = snap.data.data["menu"][index]["name"];
     itemPrice.text = snap.data.data["menu"][index]["price"].toString();
     itemTimeslot = snap.data.data["menu"][index]["timeslot"];
@@ -846,7 +961,7 @@ class _EditPageState extends State<EditPage> {
                     ),
                     Align(
                       alignment: Alignment.centerLeft,
-                                          child: Container(
+                      child: Container(
                         width: MediaQuery.of(context).size.width,
                         // height: 50.0,
                         decoration: BoxDecoration(
@@ -874,19 +989,22 @@ class _EditPageState extends State<EditPage> {
                               DropdownMenuItem(
                                 value: "10AM - 12PM",
                                 child: Text(
-                                  "10AM - 12PM", style: TextStyle(fontSize: 15),
+                                  "10AM - 12PM",
+                                  style: TextStyle(fontSize: 15),
                                 ),
                               ),
                               DropdownMenuItem(
                                 value: "01PM - 04PM",
                                 child: Text(
-                                  "01PM - 04PM", style: TextStyle(fontSize: 15),
+                                  "01PM - 04PM",
+                                  style: TextStyle(fontSize: 15),
                                 ),
                               ),
                               DropdownMenuItem(
                                 value: "06PM - 09PM",
                                 child: Text(
-                                  "06PM - 09PM", style: TextStyle(fontSize: 15),
+                                  "06PM - 09PM",
+                                  style: TextStyle(fontSize: 15),
                                 ),
                               ),
                             ],
@@ -908,9 +1026,10 @@ class _EditPageState extends State<EditPage> {
                               "name": itemname.text,
                               "price": int.parse(itemPrice.text),
                               "timeslot": itemTimeslot,
-                              "veg":veg,
-                              "rating":rating,
-                              "image":image
+                              "veg": veg,
+                              "rating": rating,
+                              "image": image,
+                              "promoted":false,
                             });
                           } else {
                             menu.add(snap.data.data["menu"][i]);

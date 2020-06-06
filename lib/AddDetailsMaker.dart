@@ -45,7 +45,8 @@ class _AddDetailsMakerState extends State<AddDetailsMaker> {
           'mobileno': user.phoneNumber,
           "rating": 0,
           "delivery": _delivery,
-          "payouts":menu
+          "payouts":menu,
+          '5StarReviews':0
         });
         firestore.collection('promotion').document(user.uid).setData({
           'promotion': menu,

@@ -1,11 +1,14 @@
-import 'package:geolocator/geolocator.dart';
+import 'week_day_widget.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 import 'drawer.dart';
 import 'package:firebase_messaging/firebase_messaging.dart' as fcm;
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'AuthChoosePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'localization/language_constants.dart';
@@ -13,23 +16,43 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'dart:developer';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:speech_recognition/speech_recognition.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ExplorePage extends StatefulWidget {
   @override
   _ExplorePageState createState() => _ExplorePageState();
 }
 
-class _ExplorePageState extends State<ExplorePage> {
+class _ExplorePageState extends State<ExplorePage>
+    with SingleTickerProviderStateMixin {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _database = Firestore.instance;
   FirebaseUser user;
   var uid;
   Geoflutterfire geo;
-  Position position;
+  GeoPoint _geopoint;
+  TabController tabController;
+  var temperature, desc;
 
-  // Location location;
+  SpeechRecognition _speechRecognition;
+  bool _isAvailable = false;
+  bool _isListening = false;
 
-  Future<String> getUser() async {
+  String resultText = "";
+
+  Future getWeather() async {
+    var apiKey = "dbdaf522e4997681584a75225a93b56a";
+    http.Response res = await http.get(
+        'http://api.openweathermap.org/data/2.5/weather?lat=${_geopoint.latitude}&lon=${_geopoint.longitude}&appid=$apiKey');
+    var results = jsonDecode(res.body);
+    setState(() {
+      temperature = results["main"]["temp"];
+      desc = results["weather"][0]["description"];
+    });
+  }
+
+  getUser() async {
     await _auth.currentUser().then((val) {
       setState(() {
         user = val;
@@ -56,10 +79,12 @@ class _ExplorePageState extends State<ExplorePage> {
   Razorpay _razorpay;
   @override
   void initState() {
+    getWeather();
+    tabController = TabController(length: 3, vsync: this);
     super.initState();
-    Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((Position value) => setState(() {
-          position = value;
-        }));
+    getLocation();
+    initSpeechRecognizer();
+
     initDynamicLink();
     geo = Geoflutterfire();
     getUser();
@@ -68,111 +93,421 @@ class _ExplorePageState extends State<ExplorePage> {
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
   }
 
+  void initSpeechRecognizer() {
+    _speechRecognition = SpeechRecognition();
+
+    _speechRecognition.setAvailabilityHandler(
+      (bool result) => setState(() => _isAvailable = result),
+    );
+
+    _speechRecognition.setRecognitionStartedHandler(
+      () => setState(() => _isListening = true),
+    );
+
+    _speechRecognition.setRecognitionResultHandler(
+      (String speech) => setState(() => resultText = speech),
+    );
+
+    _speechRecognition.setRecognitionCompleteHandler(
+      () => setState(() => _isListening = false),
+    );
+    _speechRecognition.activate().then(
+          (result) => setState(() => _isAvailable = result),
+        );
+  }
+
   @override
   void dispose() {
     _razorpay.clear();
     super.dispose();
   }
 
-  Widget TopRated() {
-    if (position == null) {
-      return Center(child: Text("OOPS, Looks like no one is serving!"));
-    }
-    return StreamBuilder(
-      stream: geo
-          .collection(collectionRef: _database.collection('homemakers'))
-          .within(
-              center: geo.point(
-                  latitude: position.latitude, longitude: position.longitude),
-              radius: 10,
-              field: 'position'),
-      builder: (BuildContext context,
-          AsyncSnapshot<List<DocumentSnapshot>> snapshot) {
-            print(position);
-        List<DocumentSnapshot> topRated = [];
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasData) {
-          snapshot.data.every((element) {
-            if (topRated.length < 5) {
-              topRated.add(element);
-            }
-            return true;
-          });
-          if (snapshot.data.isEmpty) {
-            return Center(child: Text("OOPS, Looks like no one is serving!"));
-          }
-          return Container(
-            width: MediaQuery.of(context).size.width,
-            height: 220.0,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: topRated.length,
-              itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushReplacementNamed('/ProfilePage',
-                        arguments: snapshot.data[index].documentID);
-                  },
-                  child: Container(
-                    alignment: Alignment.bottomCenter,
-                    margin: EdgeInsets.all(10.0),
-                    width: 160.0,
-                    height: 220.0,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        image: DecorationImage(
-                            image: NetworkImage(
-                                snapshot.data[index].data['image']),
-                            fit: BoxFit.fill)),
-                    child: Container(
-                      padding: EdgeInsets.only(left: 5.0),
-                      width: 160,
-                      height: 60.0,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10.0)),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "${snapshot.data[index].data["name"]}\'s Kitchen",
-                            style: TextStyle(
-                                fontSize: 17.0,
-                                fontFamily: "Gilroy",
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black),
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Text(
-                                snapshot.data[index].data['mealtype'][0] +
-                                    " | " +
-                                    snapshot.data[index].data["rating"]
-                                        .toString(),
-                                style: TextStyle(
-                                    fontSize: 13.0,
-                                    fontFamily: "Gilroy",
-                                    color: Colors.black),
+  getLocation() async {
+    var loc;
+    FirebaseAuth.instance.onAuthStateChanged.listen((user) async {
+      loc =
+          await Firestore.instance.collection('users').document(user.uid).get();
+      if (!mounted) return;
+      setState(() {
+        _geopoint = loc["position"]["geopoint"];
+      });
+    });
+    //getWeather();
+  }
+
+  Widget topRated() {
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          _geopoint == null
+              ? Center(child: Text("OOPS, Looks like no one is serving!"))
+              : StreamBuilder(
+                  stream: geo
+                      .collection(
+                          collectionRef: _database.collection('homemakers'))
+                      .within(
+                          center: geo.point(
+                              latitude: _geopoint.latitude,
+                              longitude: _geopoint.longitude),
+                          radius: 10,
+                          field: 'position'),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<DocumentSnapshot>> snapshot) {
+                    List<DocumentSnapshot> toprated = [];
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasData) {
+                      snapshot.data.every((element) {
+                        if (toprated.length < 5) {
+                          toprated.add(element);
+                        }
+                        return true;
+                      });
+                      if (snapshot.data.isEmpty) {
+                        return Center(
+                            child: Text("OOPS, Looks like no one is serving!"));
+                      }
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 200.0,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: toprated.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pushReplacementNamed(
+                                    '/ProfilePage',
+                                    arguments: snapshot.data[index].documentID);
+                              },
+                              child: Container(
+                                alignment: Alignment.bottomCenter,
+                                margin: EdgeInsets.all(10.0),
+                                width: 160.0,
+                                height: 220.0,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                            snapshot.data[index].data['image']),
+                                        fit: BoxFit.fill)),
+                                child: Container(
+                                  padding: EdgeInsets.only(left: 5.0),
+                                  width: 160,
+                                  height: 60.0,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius:
+                                          BorderRadius.circular(10.0)),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        "${snapshot.data[index].data["name"]}\'s Kitchen",
+                                        style: TextStyle(
+                                            fontSize: 17.0,
+                                            fontFamily: "Gilroy",
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.black),
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          Text(
+                                            snapshot.data[index]
+                                                    .data['mealtype'][0] +
+                                                " | " +
+                                                snapshot
+                                                    .data[index].data["rating"]
+                                                    .toString(),
+                                            style: TextStyle(
+                                                fontSize: 13.0,
+                                                fontFamily: "Gilroy",
+                                                color: Colors.black),
+                                          ),
+                                          Icon(
+                                            Icons.star,
+                                            color: Color(0xffFE506D),
+                                            size: 15.0,
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
                               ),
-                              Icon(
-                                Icons.star,
-                                color: Color(0xffFE506D),
-                                size: 15.0,
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              },
+                            );
+                          },
+                        ),
+                      );
+                    }
+                    return SizedBox();
+                  },
+                ),
+          Container(
+            alignment: Alignment.centerLeft,
+            margin: EdgeInsets.all(20.0),
+            child: Text(
+              getTranslated(context, "topPicks"),
+              style: TextStyle(
+                  fontSize: 25.0,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: "Gilroy"),
             ),
-          );
-        }
-      },
+          ),
+          _geopoint != null
+              ? StreamBuilder(
+                  stream: geo
+                      .collection(
+                          collectionRef: _database.collection('homemakers'))
+                      .within(
+                          center: geo.point(
+                              latitude: _geopoint.latitude,
+                              longitude: _geopoint.longitude),
+                          radius: 10,
+                          field: 'position'),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<DocumentSnapshot>> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasData) {
+                      List<DocumentSnapshot> temp = [];
+                      List<Map<String, dynamic>> menu = [];
+                      snapshot.data.every((element) {
+                        temp.add(element);
+                        return true;
+                      });
+                      if (snapshot.data.isEmpty) {
+                        return Center(
+                            child: Text("OOPS, Looks like no one is serving!"));
+                      }
+
+                      temp.every((element) {
+                        for (int i = 0; i < element.data["menu"].length; i++) {
+                          menu.add({
+                            "name": element.data["name"],
+                            "item": element.data["menu"][i]
+                          });
+                        }
+                        return true;
+                      });
+
+                      return Container(
+                        height: 500,
+                        child: ListView.builder(
+                          controller: _controller,
+                          itemCount: menu.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            print(menu[index]);
+                            return Dismissible(
+                              key: Key(menu[index]["item"]["name"]),
+                              onDismissed: (direction) {
+                                print(snapshot.data[index].documentID);
+                                _database
+                                    .collection('users')
+                                    .document(user.uid)
+                                    .get()
+                                    .then((DocumentSnapshot usersnapshot) => {
+                                          if (usersnapshot.exists)
+                                            {
+                                              if (usersnapshot
+                                                      .data['current_cart'] ==
+                                                  null)
+                                                {
+                                                  _database
+                                                      .collection('users')
+                                                      .document(uid)
+                                                      .updateData({
+                                                    'current_cart': [
+                                                      {
+                                                        'homemaker': snapshot
+                                                            .data[index]
+                                                            .documentID,
+                                                        'item': menu[index]
+                                                            ["item"],
+                                                        'quantity': 1
+                                                      }
+                                                    ]
+                                                  })
+                                                }
+                                              else
+                                                {
+                                                  _database
+                                                      .collection('users')
+                                                      .document(uid)
+                                                      .updateData({
+                                                    'current_cart':
+                                                        FieldValue.arrayUnion([
+                                                      {
+                                                        'homemaker': snapshot
+                                                            .data[index]
+                                                            .documentID,
+                                                        'item': menu[index]
+                                                            ["item"],
+                                                        'quantity': 1
+                                                      }
+                                                    ])
+                                                  })
+                                                }
+                                            }
+                                        });
+                              },
+                              background: Container(
+                                  color: Color(0xffFE516E),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: <Widget>[
+                                        Text("BUY",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25)),
+                                      ],
+                                    ),
+                                  )),
+                              child: Container(
+                                margin: EdgeInsets.all(10.0),
+                                width: MediaQuery.of(context).size.width,
+                                height: 85,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10.0)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    SizedBox(width: 10),
+                                    Container(
+                                      width: 100,
+                                      height: 70,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  menu[index]["item"]["image"]),
+                                              fit: BoxFit.fitWidth),
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                    ),
+                                    SizedBox(
+                                      width: 10.0,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          menu[index]["item"]["name"],
+                                          style: TextStyle(
+                                              fontFamily: "Gilroy",
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 15.0,
+                                              color: Colors.black),
+                                        ),
+                                        SizedBox(
+                                          height: 5.0,
+                                        ),
+                                        Text(
+                                          "${menu[index]["name"]}\'s Kitchen",
+                                          style: TextStyle(
+                                              fontFamily: "Gilroy",
+                                              fontSize: 13.0,
+                                              color: Colors.black),
+                                        ),
+                                        SizedBox(
+                                          height: 5.0,
+                                        ),
+                                        Text(
+                                          "₹${menu[index]["item"]["price"].toString()}/plate",
+                                          style: TextStyle(
+                                              fontFamily: "Gilroy",
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 15.0,
+                                              color: Colors.black),
+                                        )
+                                      ],
+                                    ),
+                                    Expanded(child: SizedBox()),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 10, bottom: 15),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Container(
+                                            width: 20.0,
+                                            height: 20.0,
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: menu[index]["item"]
+                                                                ["veg"] ==
+                                                            true
+                                                        ? Colors.green
+                                                        : Colors.red,
+                                                    width: 1.0)),
+                                            child: Center(
+                                              child: Container(
+                                                width: 10.0,
+                                                height: 10.0,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50.0),
+                                                    color: menu[index]["item"]
+                                                                ["veg"] ==
+                                                            true
+                                                        ? Colors.green
+                                                        : Colors.red),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 10.0,
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Text(menu[index]["item"]["rating"]
+                                                  .toString()),
+                                              Icon(
+                                                Icons.star,
+                                                color: Color(0xffFE506D),
+                                                size: 15.0,
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 5.0,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    }
+                    return SizedBox();
+                  },
+                )
+              : Center(
+                  child:
+                      Text("Oops, Looks like no one is delivering near you!"),
+                ),
+        ],
+      ),
     );
   }
 
@@ -540,8 +875,7 @@ class _ExplorePageState extends State<ExplorePage> {
                                       'name': 'Naniz',
                                       'description': 'Food Delivery',
                                       'prefill': {
-                                        'contact':
-                                            '8945529381',
+                                        'contact': '8945529381',
                                         'email': 'mashutoshrao@gmail.com',
                                       },
                                     };
@@ -566,7 +900,6 @@ class _ExplorePageState extends State<ExplorePage> {
   @override
   Widget build(BuildContext context) {
     int _selectedIndex = 0;
-    var temp;
     void _onItemTapped(int index) {
       setState(() {
         _selectedIndex = index;
@@ -646,338 +979,144 @@ class _ExplorePageState extends State<ExplorePage> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         color: Color(0xFFF9F9F9),
-        child: ListView(
-          physics: BouncingScrollPhysics(),
-          controller: _controller,
+        child: Column(
           children: <Widget>[
-            Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.all(20.0),
-              child: Text(
-                getTranslated(context, "discover"),
-                style: TextStyle(
-                    fontSize: 25.0,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: "Gilroy"),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 15.0),
-              child: Row(
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        menuType = "special";
-                      });
-                    },
-                    child: Container(
-                        margin: EdgeInsets.all(5.0),
-                        child: Text(
-                          getTranslated(context, "specials"),
-                          style: TextStyle(
-                              fontSize: menuType == "special" ? 18.0 : 15.0,
-                              color: menuType == "special"
-                                  ? Colors.black
-                                  : Colors.black26,
-                              fontFamily: "Gilroy"),
-                        )),
+            Row(children: <Widget>[
+              Expanded(
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.all(20.0),
+                  child: Text(
+                    getTranslated(context, "discover"),
+                    style: TextStyle(
+                        fontSize: 25.0,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Gilroy"),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        menuType = "top";
-                      });
-                    },
-                    child: Container(
-                        margin: EdgeInsets.all(5.0),
-                        child: Text(
-                          getTranslated(context, "top"),
-                          style: TextStyle(
-                              fontSize: menuType == "top" ? 18.0 : 15.0,
-                              color: menuType == "top"
-                                  ? Colors.black
-                                  : Colors.black26,
-                              fontFamily: "Gilroy"),
-                        )),
-                  ),
-                ],
+                ),
               ),
-            ),
-            menuType == "top" ? TopRated() : TopRated(),
-            Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.all(20.0),
-              child: Text(
-                getTranslated(context, "topPicks"),
-                style: TextStyle(
-                    fontSize: 25.0,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: "Gilroy"),
-              ),
-            ),
-            position != null
-                ? StreamBuilder(
-                    stream: geo
-                        .collection(
-                            collectionRef: _database.collection('homemakers'))
-                        .within(
-                            center: geo.point(
-                                latitude: position.latitude,
-                                longitude: position.longitude),
-                            radius: 10,
-                            field: 'position'),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<List<DocumentSnapshot>> snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasData) {
-                        List<DocumentSnapshot> temp = [];
-                        List<Map<String, dynamic>> menu = [];
-                        snapshot.data.every((element) {
-                          temp.add(element);
-                          return true;
-                        });
-                        if (snapshot.data.isEmpty) {
-                          return Center(
-                              child:
-                                  Text("OOPS, Looks like no one is serving!"));
-                        }
+              Padding(
+                padding: const EdgeInsets.only(right: 30.0),
+                child: GestureDetector(
+                    child: Icon(Icons.mic, color: Colors.black),
+                    onTap: () async {
+                      if (await Permission.microphone.isGranted) {
+                        if (_isAvailable || !_isListening)
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                // Future.delayed(Duration(seconds: 5), () {
+                                //   Navigator.of(context).pop(true);
+                                // });
 
-                        temp.every((element) {
-                          for (int i = 0;
-                              i < element.data["menu"].length;
-                              i++) {
-                            menu.add({
-                              "name": element.data["name"],
-                              "item": element.data["menu"][i]
-                            });
-                          }
-                          return true;
-                        });
+                                return Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: AnimatedContainer(
+                                    height:
+                                        MediaQuery.of(context).size.height / 4,
+                                    // width: MediaQuery.of(context).size.width * 0.8,
 
-                        return Container(
-                          // width: MediaQuery.of(context).size.width,
-                          height: 500,
-                          child: ListView.builder(
-                            controller: _controller,
-                            itemCount: menu.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              print(menu[index]);
-                              return Dismissible(
-                                key: Key(menu[index]["item"]["name"]),
-                                onDismissed: (direction) {
-                                  print(snapshot.data[index].documentID);
-                                  _database
-                                      .collection('users')
-                                      .document(user.uid)
-                                      .get()
-                                      .then((DocumentSnapshot usersnapshot) => {
-                                            if (usersnapshot.exists)
-                                              {
-                                                if (usersnapshot
-                                                        .data['current_cart'] ==
-                                                    null)
-                                                  {
-                                                    _database
-                                                        .collection('users')
-                                                        .document(uid)
-                                                        .updateData({
-                                                      'current_cart': [
-                                                        {
-                                                          'homemaker': snapshot
-                                                              .data[index]
-                                                              .documentID,
-                                                          'item': menu[index]["item"],
-                                                          'quantity': 1
-                                                        }
-                                                      ]
-                                                    })
-                                                  }
-                                                else
-                                                  {
-                                                    _database
-                                                        .collection('users')
-                                                        .document(uid)
-                                                        .updateData({
-                                                      'current_cart': FieldValue
-                                                          .arrayUnion([
-                                                        {
-                                                          'homemaker': snapshot
-                                                              .data[index]
-                                                              .documentID,
-                                                          'item': menu[index]["item"],
-                                                          'quantity': 1
-                                                        }
-                                                      ])
-                                                    })
-                                                  }
-                                              }
-                                          });
-                                },
-                                background: Container(
-                                    color: Color(0xffFE516E),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: <Widget>[
-                                          Text("BUY",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 25)),
-                                        ],
-                                      ),
-                                    )),
-                                child: Container(
-                                  margin: EdgeInsets.all(10.0),
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 85,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.circular(10.0)),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      SizedBox(width: 10),
+                                    decoration: new BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0)),
+                                      color: Color(0xFFFE4E74),
+                                    ),
+                                    width: MediaQuery.of(context).size.width,
+
+                                    duration: Duration(seconds: 10),
+                                    child: Column(children: <Widget>[
                                       Container(
-                                        width: 100,
-                                        height: 70,
+                                        margin: EdgeInsets.all(20),
+                                        padding: EdgeInsets.all(10),
                                         decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                image: NetworkImage(menu[index]
-                                                    ["item"]["image"]),
-                                                fit: BoxFit.fitWidth),
                                             borderRadius:
-                                                BorderRadius.circular(15.0)),
-                                      ),
-                                      SizedBox(
-                                        width: 10.0,
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            menu[index]["item"]["name"],
-                                            style: TextStyle(
-                                                fontFamily: "Gilroy",
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 15.0,
-                                                color: Colors.black),
-                                          ),
-                                          SizedBox(
-                                            height: 5.0,
-                                          ),
-                                          Text(
-                                            "${menu[index]["name"]}\'s Kitchen",
-                                            style: TextStyle(
-                                                fontFamily: "Gilroy",
-                                                fontSize: 13.0,
-                                                color: Colors.black),
-                                          ),
-                                          SizedBox(
-                                            height: 5.0,
-                                          ),
-                                          Text(
-                                            "₹${menu[index]["item"]["price"].toString()}/plate",
-                                            style: TextStyle(
-                                                fontFamily: "Gilroy",
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 15.0,
-                                                color: Colors.black),
-                                          )
-                                        ],
-                                      ),
-                                      Expanded(child: SizedBox()),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            right: 10, bottom: 15),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Container(
-                                              width: 20.0,
-                                              height: 20.0,
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: menu[index]["item"]
-                                                                  ["veg"] ==
-                                                              true
-                                                          ? Colors.green
-                                                          : Colors.red,
-                                                      width: 1.0)),
-                                              child: Center(
-                                                child: Container(
-                                                  width: 10.0,
-                                                  height: 10.0,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50.0),
-                                                      color: menu[index]["item"]
-                                                                  ["veg"] ==
-                                                              true
-                                                          ? Colors.green
-                                                          : Colors.red),
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 10.0,
-                                            ),
-                                            Row(
-                                              children: <Widget>[
-                                                Text(menu[index]["item"]
-                                                        ["rating"]
-                                                    .toString()),
-                                                Icon(
-                                                  Icons.star,
-                                                  color: Color(0xffFE506D),
-                                                  size: 15.0,
-                                                )
-                                              ],
-                                            )
-                                          ],
+                                                BorderRadius.circular(100),
+                                            border: Border.all(
+                                                width: 2, color: Colors.white)),
+                                        child: Icon(
+                                          Icons.mic,
+                                          size: 90,
+                                          color: Colors.white,
                                         ),
                                       ),
-                                      SizedBox(
-                                        width: 5.0,
-                                      )
-                                    ],
+                                      Text(
+                                        "",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                    ]),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
-                        );
+                                );
+                              });
+
+                        _speechRecognition
+                            .listen(locale: "en_US")
+                            .then((result) {
+                          setState(() {
+                            resultText = result;
+                          });
+                          print(result);
+                        });
+                      } else {
+                        openAppSettings();
                       }
-                    },
-                  )
-                : Center(
-                    child:
-                        Text("Oops, Looks like no one is delivering near you!"),
-                  ),
+                    }),
+              ),
+            ]),
+            Container(
+              padding: EdgeInsets.only(left: 15),
+              child: TabBar(
+                  labelPadding: EdgeInsets.only(right: 30),
+                  isScrollable: true,
+                  indicatorColor: Colors.transparent,
+                  controller: tabController,
+                  labelColor: Colors.black,
+                  unselectedLabelColor: Colors.black26,
+                  labelStyle: TextStyle(fontSize: 18, fontFamily: "Gilroy"),
+                  unselectedLabelStyle:
+                      TextStyle(fontSize: 15, fontFamily: "Gilroy"),
+                  tabs: [
+                    Tab(
+                      text: getTranslated(context, "specials"),
+                    ),
+                    Tab(
+                      text: getTranslated(context, "top"),
+                    ),
+                    Tab(text: "AI Recommends"),
+                  ]),
+            ),
+            Expanded(
+                child: TabBarView(
+                    controller: tabController,
+                    children: [topRated(), topRated(), getAIRecommends()])),
           ],
         ),
       ),
     );
   }
+
+  getAIRecommends() {
+    return Container(
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Weekday(
+            desc: desc,
+            temp: temperature,
+            geopoint: _geopoint,
+            uid: uid,
+            user_uid: user.uid,
+          ),
+        ],
+      ),
+    );
+  }
+
   void initDynamicLink() async {
     final PendingDynamicLinkData data =
-    await FirebaseDynamicLinks.instance.getInitialLink();
+        await FirebaseDynamicLinks.instance.getInitialLink();
     final Uri deepLink = data?.link;
     if (deepLink != null) {
       Navigator.of(context).pushReplacementNamed("/ExplorePage",
@@ -986,13 +1125,13 @@ class _ExplorePageState extends State<ExplorePage> {
 
     FirebaseDynamicLinks.instance.onLink(
         onSuccess: (PendingDynamicLinkData link) async {
-          final Uri deepLink = link?.link;
-          if (deepLink != null) {
-            log("${deepLink.pathSegments}");
-            Navigator.of(context).pushReplacementNamed("/ExplorePage",
-                arguments: deepLink.pathSegments);
-          }
-        }, onError: (OnLinkErrorException e) async {
+      final Uri deepLink = link?.link;
+      if (deepLink != null) {
+        log("${deepLink.pathSegments}");
+        Navigator.of(context).pushReplacementNamed("/ExplorePage",
+            arguments: deepLink.pathSegments);
+      }
+    }, onError: (OnLinkErrorException e) async {
       log("error");
       log(e.message);
     });

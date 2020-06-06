@@ -1,12 +1,17 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:http/http.dart' as http;
 
 class PromotionItemCard extends StatefulWidget {
-  var data;
+  final Map data;
   final String docId;
   final String uid;
-  PromotionItemCard({this.data, this.docId, this.uid});
+  final String fcm;
+  final String userName;
+  PromotionItemCard({this.data, this.docId, this.uid, this.fcm, this.userName});
 
   @override
   _PromotionItemCardState createState() => _PromotionItemCardState();
@@ -138,7 +143,35 @@ class _PromotionItemCardState extends State<PromotionItemCard> {
       transaction.update(docRef, {
         "promotionItems": obj,
       });
+    }).whenComplete((){
+      sendMessage();
     });
 
+  }
+
+  sendMessage() {
+    const String serverToken = "AAAAgNeqQUU:APA91bGf97wJkAGes42Tr8LeUexfwQT5YlkgnjYrVo0ZlYRyEpHonanba-qcL-SHv5vBpCZmfpJaKIEjEnnBGTDLBLxP1YAfUTTUpQsTmjpi2foUEledKs8zPklBCv_nj2_YnhkYBAKV";
+    http.post(
+      'https://fcm.googleapis.com/fcm/send',
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'key=$serverToken',
+      },
+      body: jsonEncode(
+        <String, dynamic>{
+          'notification': <String, dynamic>{
+            'body': 'Promotion Accepted',
+            'title': '${widget.data["name"]} has been accepted by ${widget.userName}'
+          },
+          'priority': 'high',
+          'data': <String, dynamic>{
+            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+            'id': '1',
+            'status': 'done'
+          },
+          'to': widget.fcm,
+        },
+      ),
+    );
   }
 }
